@@ -1,0 +1,18 @@
+@font-face {
+    font-family: 'Gistesy';
+    src: url('../fonts/Gistesy.ttf') format("truetype");
+}
+
+@font-face {
+    font-family: 'Bimbo Trial';
+    src: url('../fonts/Bimbo Trial.ttf') format("truetype");
+}
+
+@font-face {
+    font-family: 'Gidole';
+    src: url('../fonts/Gidole-Regular.ttf') format("truetype");
+}
+@font-face {
+    font-family: 'Dejavu-Sans';
+    src: url('../fonts/DejaVuSanswithNommasNoDecimals.ttf') format("truetype");
+}
