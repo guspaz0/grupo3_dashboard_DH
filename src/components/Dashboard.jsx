@@ -1,15 +1,25 @@
-import React from 'react';
+import React,{useState} from 'react';
 import SideBar from './SideBar';
-//import Payments from './Payments';
-import Navbar from './Navbar'
 
-function Dashboard() {
+import Navbar from './Navbar';
+
+
+function Dashboard({user, setUser}) {
 
     const [state, setState] = React.useState('')
 
+
     return (<>
-    <h2>Dashboard</h2>
-    <SideBar setState={setState}/>
+    <Navbar user={user} setUser={setUser}/>
+    <link rel="stylesheet" href="/css/dashboard.css"/>
+    <div className='container'>
+        <SideBar setState={setState}/>
+        <section>
+        <h2>Dashboard</h2>
+        <hr></hr>
+        {state? state: null}
+        </section>
+    </div>
     </>
     )
 }

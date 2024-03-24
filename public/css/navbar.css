@@ -1,4 +1,6 @@
-
+* {
+    font-family: 'Gidole';
+}
 i.colorIcon {
     border-radius:50%;
     width:20px;
