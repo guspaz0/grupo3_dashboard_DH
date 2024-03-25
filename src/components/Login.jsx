@@ -26,7 +26,6 @@ function Login({setUser}) {
             body: JSON.stringify(logInfo),
             credentials: "include"
             });
-            console.log(response)
             const data = await response.json();
             if (response.status == 401 && Object.keys(data).length > 0) setErrors(data)
             else {

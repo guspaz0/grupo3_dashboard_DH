@@ -2,9 +2,11 @@ import React,{useEffect, useState} from 'react';
 import LineChart from './Charts/LineChart'
 const {VITE_DB_HOST} = import.meta.env
 
-function Payments(props) {
+function Payments({props}) {
 
-    const [state,setState] = useState({})
+    let {id, reducer, setReducer} = props
+
+    const Selector = reducer.find(comp => comp.id == id).state
 
     const [form,setForm] = useState({
         desde: '2023-12-01',
@@ -30,8 +32,10 @@ function Payments(props) {
                 credentials: "include",
             })
             const Data = await response.json()
-            console.log(Data)
-            setState(Data)
+            setReducer([
+                ...reducer.filter(comp => comp.id !== id),
+                {id, state: Data}
+            ])
         } catch (error) {
             console.log(error)
         }
@@ -66,11 +70,11 @@ function Payments(props) {
         </form>
         <div>
             <div className="lastsales">
-                {state.data && <table>
+                {Selector.data && <table>
                     <caption>Ultimos Pagos</caption>
                     <tbody>
                         <tr><th>Detalle</th><th>Total</th><th>Estado</th><th>Fecha</th></tr>
-                        {state.data.map(({id,total,status,created_at,updated_at}) => <tr key={id}>
+                        {Selector.data.map(({id,total,status,created_at,updated_at}) => <tr key={id}>
                             <td><button className="button" value={id} onClick={handleDetail}>{id}</button></td>
                             <td className="number">{total}</td>
                             <td className={status}>{status}</td>
@@ -79,7 +83,7 @@ function Payments(props) {
                     </tbody>
                 </table>}
             </div>
-            {state.grafico && <LineChart data={state.grafico} options={{legend: {display: false}}}/>}       
+            {Selector.grafico && <LineChart data={Selector.grafico} options={{legend: {display: false}}}/>}       
             <div className="topuser">
                 
             </div>
