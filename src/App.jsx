@@ -23,16 +23,9 @@ function App() {
 
   return (
     <div>
-      {/* {location.pathname !== '/'?
-        location.pathname !== '/dashboard/login' && <>
-        </>: null} */}
       {user.access? <Navigate to="/dashboard"/> : <Navigate to="/dashboard/login"/>}
       <Routes>
-        {user.access && user.admin == 1? <>
-          <Route path="/dashboard" element={<Dashboard user={user} setUser={setUser}/>}/>
-        </>:
-        null
-        }
+        {user.access && user.admin == 1 && <Route path="/dashboard" element={<Dashboard user={user} setUser={setUser}/>}/>}
         <Route path="/dashboard/login" element={<Login setUser={setUser}/>}/>
         <Route path="*" element={<Error/>}/>
       </Routes>

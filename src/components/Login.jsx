@@ -21,9 +21,10 @@ function Login({setUser}) {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify(logInfo)
+            body: JSON.stringify(logInfo),
+            credentials: "include"
             });
             const data = await response.json();
             if (response.status == 401 && Object.keys(data).length > 0) setErrors(data)
@@ -55,6 +56,9 @@ function Login({setUser}) {
                     value={logInfo.password}
                 />
             {errors.password && <small className='errors'>{errors.password.msg}</small>}
+            <label htmlFor="recordame">Recordame</label>
+            <input id="recordame" type="checkbox" name="recordame"/>
+
             <button id="loginboton" onClick={handleLogin}><b>LogIn</b></button>
         </form>
     </div>

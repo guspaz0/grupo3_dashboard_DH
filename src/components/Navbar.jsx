@@ -17,11 +17,12 @@ export default function Navbar({user, setUser}){
     return(
         <nav >
             <span className="barrasuperior">
+            <h2>Dashboard</h2>
                 <img className="logoLargo" src={LogoLargo} alt="logo-largo.png"/>
                 {user?.hasOwnProperty('access') && user.access? 
                     <span className="loginNavbar">
-                        <img id="userImg" src={user.imagen} alt=""/>
-                        <p>Hola, {user.nombre}</p>
+                        <img className="perfil" id="userImg" src={user.imagen} alt={user.nombre.slice(0,1)+user.apellido.slice(0,1)}/>
+                        Hola, {user.nombre}
                         <button onClick={handleLogout}>Cerrar Sesion</button>
                     </span>
                 : <span className="loginNavbar">
