@@ -25,7 +25,7 @@ export default function SideBar({setState}) {
     return (<>
     <link rel="stylesheet" href="/css/sidebar.css"/>
     <div className='sidebar'>
-        <h3>Menu</h3>
+        <b>Menu</b>
         <ul>
             {Menu.map(({id,name}) => <li key={id+name}><button value={id} onClick={handleMenu}>{name}</button></li>)}
         </ul>

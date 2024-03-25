@@ -28,6 +28,7 @@ i.colorIcon {
     display: none;
 }
 .logoLargo {
+    display: none;
     align-items: center;
     justify-content: center;
     align-content: center;
@@ -144,7 +145,7 @@ img.perfil {
     align-items: center;
     justify-content: center;
     background-color: #1259c3;
-    font-size: 110px;
+    font-size: 34px;
     color: white;
     font-weight: bold;
 }
@@ -169,7 +170,9 @@ fieldset {
     body{
         padding-top: 7px;
       }
-
+    .logoLargo {
+        display: block;
+    }
       /* .loginNavbar button {
         max-width: 80px;
         margin-right: 0;

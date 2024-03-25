@@ -15,8 +15,6 @@ function Dashboard({user, setUser}) {
     <div className='container'>
         <SideBar setState={setState}/>
         <section>
-        <h2>Dashboard</h2>
-        <hr></hr>
         {state? state: null}
         </section>
     </div>

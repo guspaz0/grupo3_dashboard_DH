@@ -1,5 +1,6 @@
+const {VITE_DB_HOST} = import.meta.env
+const host = VITE_DB_HOST
 const form = document.querySelector('form#payment')
-const host = window.location.host
 
 let errores = {}
 function handleErrors(input){
@@ -49,7 +50,7 @@ Array.from(form).forEach((key,i) => {
 
 form.onsubmit = (e) => {
     Array.from(form).forEach((key) => {
-        handleErrors(key.name,form)})
+        handleErrors(key.name)})
     if(Object.keys(errores).length > 0) {
         e.preventDefault()
         alert('corregir los errores del formulario')
