@@ -1,5 +1,6 @@
 import React,{useEffect, useState} from 'react';
-import LineChart from './Charts/LineChart'
+import LineChart from '../Charts/LineChart'
+import PaymentDetail from './PaymentDetail';
 const {VITE_DB_HOST} = import.meta.env
 
 function Payments({props}) {
@@ -41,16 +42,34 @@ function Payments({props}) {
         }
     }
 
+    const [detail,setDetail] = useState()
+
+    async function getDetail(id) {
+
+    } 
     async function handleDetail(e) {
-        try {
-            e.preventDefault()
-        } catch (error) {
+        e.preventDefault()
+                try {
+            const response = await fetch(`http://${VITE_DB_HOST}/api/payment/${e.target.value}`,{
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include'
+            })
+            const data = await response.json()
+            //return data
+            setDetail(data)
+        } catch (error){
             console.log(error)
         }
+        
     }
 
     return (
     <div className='containerData'>
+        {detail && <PaymentDetail detail={detail} setDetail={setDetail}/>}
         <link href="\css\payments.css" rel="stylesheet"/>
         <h2>Informes de Pagos</h2>
         <form id="payment">

@@ -4,7 +4,7 @@ import Navbar from './Navbar';
 import Products from './Products';
 import Users from './Users';
 import Lastregisters from './Lastregisters';
-import Payments from './Payments';
+import Payments from './Payment/Payments';
 
 
 function Dashboard({user, setUser}) {

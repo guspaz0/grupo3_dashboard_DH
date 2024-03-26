@@ -1,6 +1,5 @@
 import React,{ useState,useEffect } from 'react'
 import {Route, useLocation, Routes, useNavigate, Navigate, Link} from 'react-router-dom'
-import SideBar from './components/SideBar'
 import Dashboard from './components/Dashboard'
 
 import Error from './components/Errors'
