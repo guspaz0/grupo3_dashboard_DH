@@ -44,9 +44,6 @@ function Payments({props}) {
 
     const [detail,setDetail] = useState()
 
-    async function getDetail(id) {
-
-    } 
     async function handleDetail(e) {
         e.preventDefault()
                 try {
@@ -59,7 +56,6 @@ function Payments({props}) {
                 credentials: 'include'
             })
             const data = await response.json()
-            //return data
             setDetail(data)
         } catch (error){
             console.log(error)
