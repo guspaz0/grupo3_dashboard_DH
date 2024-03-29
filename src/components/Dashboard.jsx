@@ -6,13 +6,13 @@ import Products from './Products';
 import Users from './Users';
 import Lastregisters from './Lastregisters';
 import Payments from './Payment/Payments';
-import Inicio from './Inicio';
+import Inicio from './Inicio/Inicio';
 
 
 
 function Dashboard({user, setUser}) {
 
-    const [state, setState] = React.useState('')
+    const [state, setState] = React.useState(1)
 
     const Menu = [
         {id: 1, name: 'Inicio', component: (props) => {return <Inicio props={props}/>}},
@@ -30,6 +30,7 @@ function Dashboard({user, setUser}) {
             state: {}
         }})
     )
+
     async function fetchData(endpoint) {
         try {
             const response = await fetch(`http://${VITE_DB_HOST}${endpoint}`,{
@@ -47,17 +48,20 @@ function Dashboard({user, setUser}) {
         }
     }
 
+
     useEffect(()=>{
         Menu.forEach(comp => {
-            if (comp.endpoint) {
-                const Filter = reducer.filter(({id}) => id !== comp.id)
+            let compState = reducer.find(state => state.id == comp.id).state
+            if (comp.endpoint && Object.keys(compState).length == 0) {
                 fetchData(comp.endpoint).then((data) => {
-                    setReducer([...Filter, {id: comp.id, state: data}])
+                    setReducer([
+                        ...reducer.filter(({id}) => id !== comp.id),
+                        {id: comp.id, state: data}
+                    ])
                 })
             }
         })
-        setState(1)
-    },[])
+    },[reducer])
 
     return (<>
     <Navbar user={user} setUser={setUser}/>

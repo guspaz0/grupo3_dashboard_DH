@@ -1,5 +1,5 @@
-import React,{useEffect,useState} from 'react'
-const {VITE_DB_HOST} = import.meta.env
+import React from 'react'
+const { VITE_DB_HOST } = import.meta.env
 
 function PaymentDetail({detail, setDetail}) {
 
@@ -32,7 +32,7 @@ function PaymentDetail({detail, setDetail}) {
                     <tr><th>Producto</th><th>Color</th><th>Cant</th><th>Precio</th><th>Subtotal</th></tr>
                     {detail.products.map(({ product, color, cantidad, precio }) => { return <tr key={product.id}>
                         <td><img className="product" src={product.images[0].pathName} alt="img"/>({product.id}){product.name}</td>
-                        <td><i style={{ backgroundColor: color.name, color: color.name, borderRadius: '50%', border: 'solid 0.1px black'}}>oo</i></td>
+                        <td><i className="colorIcon" style={{ backgroundColor: color.name }}></i></td>
                         <td>{cantidad}</td>
                         <td className="number">{precio}</td>
                         <td><b className="number">{(cantidad*precio).toFixed(2)}</b></td>

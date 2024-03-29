@@ -55,7 +55,7 @@ main {
 .login-modal button {
     border-radius: 5px;
     padding: 10px;
-    background-color: #1259c3;
+    background-color: rgb(38, 119, 91);
     color: white;
     width: 35%;
     margin: 10px 0 0 0;
