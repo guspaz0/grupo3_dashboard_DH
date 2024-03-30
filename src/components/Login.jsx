@@ -1,7 +1,8 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
+import { useNavigate, Navigate } from 'react-router-dom';
 const {VITE_DB_HOST} = import.meta.env
 
-function Login({setUser}) {
+function Login({user, setUser}) {
 
     const [logInfo,setLogInfo] = useState({
         email: '',
@@ -13,7 +14,7 @@ function Login({setUser}) {
         const {name,value} = e.target
         setLogInfo({...logInfo, [name]: value})
     }
-
+    const navigate = useNavigate()
     async function handleLogin(e) {
         e.preventDefault()
         try {
@@ -35,8 +36,13 @@ function Login({setUser}) {
         } catch (error) {
             console.log(error)
         }
-    } 
+    }
 
+    useEffect(()=> {
+        if (user?.access) {
+            navigate('/dashboard')
+        }
+    },[user])
 
     return (
     <div className="login-modal">

@@ -1,9 +1,7 @@
 import React,{useState, useEffect} from 'react'
 import LastProduct from './LastProduct'
 
-function Inicio({props}) {
-
-    const {id, reducer, setReducer} = props
+function Inicio({id, reducer, setReducer}) {
 
     const Productos = reducer.find(state => state.id == 3).state
     const Usuarios = reducer.find(state => state.id == 2).state
@@ -23,8 +21,15 @@ function Inicio({props}) {
                 <p>Total de Categorias</p>
                 {Productos.countByCategory? Object.keys(Productos.countByCategory).length : null}
             </div>
+            {Productos?.products && <LastProduct products={Productos.products}/>}
+            {Productos?.countByCategory && <div className='panel categories'>
+                <p>Recuento de productos por Categoria</p>
+                {Object.keys(Productos.countByCategory).map((category) => <span className='category' key={category}>
+                    <b>{category}:</b><span>{Productos.countByCategory[category]}</span>
+                </span>
+)}
+            </div>}
         </div>
-        {Productos?.products && <LastProduct products={Productos.products}/>}
         </>
     )
 }

@@ -1,12 +1,17 @@
+
+.sideMenu {
+    grid-column: 1;
+    grid-row: 2;
+    height: 100%;
+}
 .sidebar {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    justify-content: flex-start;
     gap: 5px;
     border: solid 1px black;
-    width: 100%;
-    padding-block: 5px;
+    padding: 10px;
 }
 
 ul, li{
@@ -21,11 +26,9 @@ ul, li{
 
 @media (min-width: 760px) {
 
-    .sidebar {
-        flex-direction: column;
-        width: 15%;
-        padding: 5px;
-        height: 100%;
+    .sideMenu {
+        grid-column: 1;
+        grid-row: 2;
     }
     ul, li{
         margin: 0;

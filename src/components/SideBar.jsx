@@ -1,23 +1,16 @@
 import React from 'react';
-import {Link} from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
 
 
-export default function SideBar({setState, Menu}) {
-
-
-
-    function handleMenu(e) {
-        e.preventDefault()
-        setState(+e.target.value)
-    }
+export default function SideBar({Menu}) {
 
 
     return (<>
     <link rel="stylesheet" href="/css/sidebar.css"/>
-    <div className='sidebar'>
+    <div className='sidebar sideMenu'>
         <b>Menu</b>
         <ul>
-            {Menu.map(({id,name}) => <li key={id+name}><button value={id} onClick={handleMenu}>{name}</button></li>)}
+            {Menu.map(({id,name,route}) => <li key={id+name}><NavLink to={route? route : '/dashboard'}>{name}</NavLink></li>)}
         </ul>
     </div>
     </>

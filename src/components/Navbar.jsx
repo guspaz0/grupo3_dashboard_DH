@@ -4,9 +4,6 @@ import LogoLargo from '/images/logo-largo.png';
 
 export default function Navbar({user, setUser}){
 
-    useEffect(()=> {
-
-    },[])
 
     function handleLogout(e) {
         e.preventDefault()
@@ -26,7 +23,7 @@ export default function Navbar({user, setUser}){
                         <button onClick={handleLogout}>Cerrar Sesion</button>
                     </span>
                 : <span className="loginNavbar">
-                    <button onClick={(e)=> e.preventDefault()}><Link to="/dashboard/login">Login</Link></button>
+                    {/* <button onClick={(e)=> e.preventDefault()}><Link to="/dashboard/login">Login</Link></button> */}
                 </span>    
                 }
             </span>

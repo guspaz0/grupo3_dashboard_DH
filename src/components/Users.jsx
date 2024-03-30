@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Users(props) {
+function Users({id, reducer, setReducer}) {
   return (
     <div>
       <h3>Usuarios</h3>

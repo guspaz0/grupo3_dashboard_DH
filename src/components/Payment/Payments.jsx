@@ -3,9 +3,7 @@ import LineChart from '../Charts/LineChart'
 import PaymentDetail from './PaymentDetail';
 const {VITE_DB_HOST} = import.meta.env
 
-function Payments({props}) {
-
-    let {id, reducer, setReducer} = props
+function Payments({id, reducer, setReducer}) {
 
     const Selector = reducer.find(comp => comp.id == id).state
 

@@ -1,6 +1,10 @@
 * {
     font-family: 'Gidole';
 }
+nav {
+    grid-column: span 2;
+    gap: 10px
+}
 i.colorIcon {
     border-radius:50%;
     width:20px;
