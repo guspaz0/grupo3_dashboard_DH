@@ -1,7 +1,7 @@
 import React,{useEffect, useState} from 'react';
 import LineChart from '../Charts/LineChart'
 import PaymentDetail from './PaymentDetail';
-const {VITE_DB_HOST} = import.meta.env
+import fetchData from '../../utils/fetchData';
 
 function Payments({id, reducer, setReducer}) {
 
@@ -19,44 +19,26 @@ function Payments({id, reducer, setReducer}) {
         setForm({...form, [name]: value})
     }
 
-    async function handleSubmit(e) {
-        try {
-            e.preventDefault()
-            const response = await fetch(`http://${VITE_DB_HOST}/api/payment?desde=${form.desde}&hasta=${form.hasta}&estado=${form.estado}`,{
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                credentials: "include",
-            })
-            const Data = await response.json()
+    function handleSubmit(e) {
+        e.preventDefault()
+        fetchData(`/api/payment?desde=${form.desde}&hasta=${form.hasta}&estado=${form.estado}`)
+        .then(data => {
             setReducer([
                 ...reducer.filter(comp => comp.id !== id),
-                {id, state: Data}
+                {id, state: data}
             ])
-        } catch (error) {
-            console.log(error)
-        }
+        }).catch(error => alert(error.message))
     }
 
     const [detail,setDetail] = useState()
 
     async function handleDetail(e) {
         e.preventDefault()
-                try {
-            const response = await fetch(`http://${VITE_DB_HOST}/api/payment/${e.target.value}`,{
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                credentials: 'include'
-            })
-            const data = await response.json()
+        try {
+            const data = await fetchData(`/api/payment/${e.target.value}`)
             setDetail(data)
         } catch (error){
-            console.log(error)
+            alert(error.message)
         }
         
     }

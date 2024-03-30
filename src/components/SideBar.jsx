@@ -1,5 +1,5 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 
 export default function SideBar({Menu}) {
@@ -8,9 +8,16 @@ export default function SideBar({Menu}) {
     return (<>
     <link rel="stylesheet" href="/css/sidebar.css"/>
     <div className='sidebar sideMenu'>
-        <b>Menu</b>
+        <h3>Menu</h3>
         <ul>
-            {Menu.map(({id,name,route}) => <li key={id+name}><NavLink to={route? route : '/dashboard'}>{name}</NavLink></li>)}
+            {Menu.map(({id,name, route, sublist}) => {
+            if (!sublist) return <li key={id}><Link to={route}>{name}</Link></li>
+            else return <li key={id+name}>{name}
+                    <ul>
+                        {sublist.map((sub) => <li key={id+name}><Link to={sub.route}>{sub.name}</Link></li>)}
+                    </ul>
+                </li>
+            })}
         </ul>
     </div>
     </>

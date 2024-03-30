@@ -25,7 +25,7 @@ function ProductDetail() {
     {product? 
         <div className='panel'>
         <link href="/css/detalle.css" rel="stylesheet"/>
-        <p>Ultimo Producto creado</p>
+        <p>Detalle de Producto</p>
         <article>
         <div className="imagenes">
             {images?.map((img) => <img key={img.id} src={img.pathName} alt={img.pathName}/>)}

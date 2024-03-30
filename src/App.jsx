@@ -8,6 +8,7 @@ import SideBar from './components/SideBar'
 import Inicio from './components/Inicio/Inicio'
 import ProductDetail from './components/Products/ProductDetail'
 import Products from './components/Products/Products'
+import ProductCreate from './components/Products/ProductCreate'
 import Payments from './components/Payment/Payments'
 import Users from './components/Users'
 
@@ -29,10 +30,13 @@ function App() {
   const Menu = [
     {id: 1, name: 'Inicio', route: '/dashboard'},
     {id: 2, name: 'Usuarios', route: '/dashboard/users', endpoint: '/api/users?key=allUsers'},
-    {id: 3, name: 'Productos', route: '/dashboard/products', endpoint: '/api/products'},
+    {id: 3, name: 'Productos', endpoint: '/api/products', 
+      sublist: [
+        {name: 'Listado', route: '/dashboard/products'},
+        {name: 'Crear Producto', route: 'dashboard/products/create'},
+    ]},
     {id: 5, name: 'Informe de Pagos', route: '/dashboard/payments'}
     
-    //{id: 4, active: false, name: 'Otros'}
 ]
 
   const [reducer, setReducer] = useState(
@@ -73,6 +77,8 @@ useEffect(()=>{
             : <Payments id={5} reducer={reducer} setReducer={setReducer}/>}/>
           <Route path="/dashboard/products" element={!user.access? <Navigate to="/dashboard/login"/> 
             : <Products id={3} reducer={reducer} setReducer={setReducer}/>}/>
+          <Route path="/dashboard/products/create" element={!user.access? <Navigate to="/dashboard/login"/> 
+            : <ProductCreate id={3} reducer={reducer} setReducer={setReducer}/>}/>
           <Route path="/dashboard/product/:id" element={!user.access? <Navigate to="/dashboard/login"/> 
             : <ProductDetail />}/>
           <Route path="/dashboard/users" element={!user.access? <Navigate to="/dashboard/login"/> 

@@ -1,5 +1,5 @@
-import React,{useState,useEffect} from "react";
-import {Link} from 'react-router-dom'
+import React from "react";
+
 import LogoLargo from '/images/logo-largo.png'; 
 
 export default function Navbar({user, setUser}){
@@ -23,7 +23,6 @@ export default function Navbar({user, setUser}){
                         <button onClick={handleLogout}>Cerrar Sesion</button>
                     </span>
                 : <span className="loginNavbar">
-                    {/* <button onClick={(e)=> e.preventDefault()}><Link to="/dashboard/login">Login</Link></button> */}
                 </span>    
                 }
             </span>

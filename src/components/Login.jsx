@@ -1,5 +1,5 @@
 import React,{useEffect, useState} from 'react';
-import { useNavigate, Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 const {VITE_DB_HOST} = import.meta.env
 
 function Login({user, setUser}) {
