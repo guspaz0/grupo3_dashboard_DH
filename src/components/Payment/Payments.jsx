@@ -1,10 +1,9 @@
 import React,{useEffect, useState} from 'react';
-import LineChart from './Charts/LineChart'
-const {VITE_DB_HOST} = import.meta.env
+import LineChart from '../Charts/LineChart'
+import PaymentDetail from './PaymentDetail';
+import fetchData from '../../utils/fetchData';
 
-function Payments({props}) {
-
-    let {id, reducer, setReducer} = props
+function Payments({id, reducer, setReducer}) {
 
     const Selector = reducer.find(comp => comp.id == id).state
 
@@ -20,37 +19,33 @@ function Payments({props}) {
         setForm({...form, [name]: value})
     }
 
-    async function handleSubmit(e) {
-        try {
-            e.preventDefault()
-            const response = await fetch(`http://${VITE_DB_HOST}/api/payment?desde=${form.desde}&hasta=${form.hasta}&estado=${form.estado}`,{
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                credentials: "include",
-            })
-            const Data = await response.json()
+    function handleSubmit(e) {
+        e.preventDefault()
+        fetchData(`/api/payment?desde=${form.desde}&hasta=${form.hasta}&estado=${form.estado}`)
+        .then(data => {
             setReducer([
                 ...reducer.filter(comp => comp.id !== id),
-                {id, state: Data}
+                {id, state: data}
             ])
-        } catch (error) {
-            console.log(error)
-        }
+        }).catch(error => alert(error.message))
     }
 
+    const [detail,setDetail] = useState()
+
     async function handleDetail(e) {
+        e.preventDefault()
         try {
-            e.preventDefault()
-        } catch (error) {
-            console.log(error)
+            const data = await fetchData(`/api/payment/${e.target.value}`)
+            setDetail(data)
+        } catch (error){
+            alert(error.message)
         }
+        
     }
 
     return (
     <div className='containerData'>
+        {detail && <PaymentDetail detail={detail} setDetail={setDetail}/>}
         <link href="\css\payments.css" rel="stylesheet"/>
         <h2>Informes de Pagos</h2>
         <form id="payment">

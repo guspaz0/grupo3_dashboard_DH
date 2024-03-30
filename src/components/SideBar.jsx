@@ -2,22 +2,22 @@ import React from 'react';
 import {Link} from 'react-router-dom'
 
 
-export default function SideBar({setState, Menu}) {
-
-
-
-    function handleMenu(e) {
-        e.preventDefault()
-        setState(+e.target.value)
-    }
+export default function SideBar({Menu}) {
 
 
     return (<>
     <link rel="stylesheet" href="/css/sidebar.css"/>
-    <div className='sidebar'>
-        <b>Menu</b>
+    <div className='sidebar sideMenu'>
+        <h3>Menu</h3>
         <ul>
-            {Menu.map(({id,name}) => <li key={id+name}><button value={id} onClick={handleMenu}>{name}</button></li>)}
+            {Menu.map(({id,name, route, sublist}) => {
+            if (!sublist) return <li key={id}><Link to={route}>{name}</Link></li>
+            else return <li key={id+name}>{name}
+                    <ul>
+                        {sublist.map((sub) => <li key={id+name}><Link to={sub.route}>{sub.name}</Link></li>)}
+                    </ul>
+                </li>
+            })}
         </ul>
     </div>
     </>

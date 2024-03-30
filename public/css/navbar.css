@@ -1,6 +1,10 @@
 * {
     font-family: 'Gidole';
 }
+nav {
+    grid-column: span 2;
+    gap: 10px
+}
 i.colorIcon {
     border-radius:50%;
     width:20px;
@@ -103,7 +107,7 @@ nav ul {
     min-width: 70px;
     width: 12vw;
     font-size: 1rem;
-    background-color: #1259c3;
+    background-color: rgb(38, 119, 91);
     color: white;
     border-radius: 5px;
     padding: 3px;
@@ -145,7 +149,7 @@ img.perfil {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    background-color: #1259c3;
+    background-color: rgb(38, 119, 91);
     font-size: 34px;
     color: white;
     font-weight: bold;
