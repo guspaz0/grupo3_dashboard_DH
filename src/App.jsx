@@ -11,6 +11,8 @@ import Products from './components/Products/Products'
 import ProductCreate from './components/Products/ProductCreate'
 import Payments from './components/Payment/Payments'
 import Users from './components/Users'
+import PaymentMetrics from './components/Payment/PaymentMetrics'
+import PaymentDetail from './components/Payment/PaymentDetail'
 
 
 function App() {
@@ -35,15 +37,26 @@ function App() {
         {name: 'Listado', route: '/dashboard/products'},
         {name: 'Crear Producto', route: 'dashboard/products/create'},
     ]},
-    {id: 5, name: 'Informe de Pagos', route: '/dashboard/payments'}
+    {id: 5, name: 'Informes de Ventas',
+      sublist: [
+        {name: 'Metricas', route: '/dashboard/payments/metrics'},
+        {name: 'Listados', route: '/dashboard/payments'}
+      ]
+    }
     
 ]
 
   const [reducer, setReducer] = useState(
-    Menu.map(comp => {return {
-        id: comp.id,
-        state: {}
-    }})
+    // Menu.map(comp => {return {
+    //     id: comp.id,
+    //     state: {}
+    // }})
+    [
+      {id: 1, state: {}},
+      {id: 2, state: {}},
+      {id: 3, state: {}},
+      {id: 5, state: {}},
+    ]
 )
 
 useEffect(()=>{
@@ -60,7 +73,7 @@ useEffect(()=>{
       }
     })
   }
-},[reducer,user])
+},[user])
 
 
   return (<>
@@ -75,6 +88,10 @@ useEffect(()=>{
             : <Inicio reducer={reducer} setReducer={setReducer}/>}/>
           <Route path="/dashboard/payments" element={!user.access? <Navigate to="/dashboard/login"/> 
             : <Payments id={5} reducer={reducer} setReducer={setReducer}/>}/>
+          <Route path="/dashboard/payments/metrics" element={!user.access? <Navigate to="/dashboard/login"/>
+            : <PaymentMetrics id={5} reducer={reducer} setReducer={setReducer}/>}/>
+          <Route path="/dashboard/payments/:id" element={!user.access? <Navigate to="/dashboard/login"/>
+            : <PaymentDetail/>}/>
           <Route path="/dashboard/products" element={!user.access? <Navigate to="/dashboard/login"/> 
             : <Products id={3} reducer={reducer} setReducer={setReducer}/>}/>
           <Route path="/dashboard/products/create" element={!user.access? <Navigate to="/dashboard/login"/> 

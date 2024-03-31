@@ -1,6 +1,5 @@
 import React,{useEffect, useState} from 'react'
-import { useLocation, useParams,Link } from 'react-router-dom';
-import ProductDetail from './ProductDetail';
+import { Link } from 'react-router-dom';
 
 function Products({id, reducer, setReducer}) {
 
@@ -17,7 +16,7 @@ function Products({id, reducer, setReducer}) {
                     {Productos.products.map((product) => {
                         const { name, description, line, categories, colors, images, price,
                             created_at, updated_at, deleted_at, favorites, detail } = product
-                            {return <article key={id}>
+                            {return <article key={id+name}>
                                 <img src={images[0].pathName} alt={images[0].pathName}/>
                                 <p>{name}</p>
                                 <p>{categories.name}</p>

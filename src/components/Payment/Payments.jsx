@@ -1,6 +1,6 @@
 import React,{useEffect, useState} from 'react';
+import {Link} from 'react-router-dom'
 import LineChart from '../Charts/LineChart'
-import PaymentDetail from './PaymentDetail';
 import fetchData from '../../utils/fetchData';
 
 function Payments({id, reducer, setReducer}) {
@@ -25,27 +25,13 @@ function Payments({id, reducer, setReducer}) {
         .then(data => {
             setReducer([
                 ...reducer.filter(comp => comp.id !== id),
-                {id, state: data}
+                {id, state: {...Selector, ...data}}
             ])
         }).catch(error => alert(error.message))
     }
 
-    const [detail,setDetail] = useState()
-
-    async function handleDetail(e) {
-        e.preventDefault()
-        try {
-            const data = await fetchData(`/api/payment/${e.target.value}`)
-            setDetail(data)
-        } catch (error){
-            alert(error.message)
-        }
-        
-    }
-
     return (
     <div className='containerData'>
-        {detail && <PaymentDetail detail={detail} setDetail={setDetail}/>}
         <link href="\css\payments.css" rel="stylesheet"/>
         <h2>Informes de Pagos</h2>
         <form id="payment">
@@ -70,7 +56,7 @@ function Payments({id, reducer, setReducer}) {
                     <tbody>
                         <tr><th>Detalle</th><th>Total</th><th>Estado</th><th>Fecha</th></tr>
                         {Selector.data.map(({id,total,status,created_at,updated_at}) => <tr key={id}>
-                            <td><button className="button" value={id} onClick={handleDetail}>{id}</button></td>
+                            <td><Link to={`/dashboard/payments/${id}`} className="button">{id}</Link></td>
                             <td className="number">{total}</td>
                             <td className={status}>{status}</td>
                             <td>{created_at}</td>
