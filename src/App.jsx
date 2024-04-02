@@ -58,10 +58,14 @@ function App() {
 useEffect(()=>{
   if (user.access) {
     const promises = Menu.map(comp => {
-      if (comp.endpoint && Object.keys(reducer.find(({id}) => id == comp.id).state).length == 0) {
+      let compState = reducer.find(({id}) => id == comp.id).state
+      if (comp.endpoint && Object.keys(compState).length == 0) {
         return new Promise(resolve => resolve(fetchData(comp.endpoint)))
-          .then((data) => {return {id: comp.id, state: data}})
-      } else {return {id: comp.id, state: {}}}
+          .then((data) => {
+            return {id: comp.id, state: data}})
+      } else if (!comp.endpoint) {
+        return {id: comp.id, state: {}}
+      }
     })
     Promise.all(promises).then(data => {
       setReducer(data)
@@ -97,7 +101,7 @@ useEffect(()=>{
             : <Products id={3} reducer={reducer} setReducer={setReducer}/>}/>
           <Route path="/dashboard/products/create" element={!user.access? <Navigate to="/dashboard/login"/> 
             : <ProductCreate id={3} reducer={reducer} setReducer={setReducer}/>}/>
-          <Route path="/dashboard/product/:id" element={!user.access? <Navigate to="/dashboard/login"/> 
+          <Route path="/dashboard/products/:id" element={!user.access? <Navigate to="/dashboard/login"/> 
             : <ProductDetail />}/>
           <Route path="/dashboard/users" element={!user.access? <Navigate to="/dashboard/login"/> 
             : <Users id={2} reducer={reducer} setReducer={setReducer}/>}/>

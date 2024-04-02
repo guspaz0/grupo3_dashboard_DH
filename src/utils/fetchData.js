@@ -1,9 +1,9 @@
 const {VITE_DB_HOST} = import.meta.env
 
-async function fetchData(endpoint, body) {
+async function fetchData(endpoint, body, method) {
     try {
         const response = await fetch(`http://${VITE_DB_HOST}${endpoint}`,{
-            method: body? 'POST' : 'GET',
+            method: body? method? method : 'POST' : 'GET',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'

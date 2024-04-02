@@ -19,7 +19,7 @@ canvas {
     min-width: 350px;
 }
 
-.detail {
+/* .detail {
     position: fixed;
     display: flex;
     flex-direction: column;
@@ -33,7 +33,7 @@ canvas {
     height: 100%;
     top: 1%;
     z-index: 15;
-}
+} */
 
 .detail > div {
     background-color: #efefef;

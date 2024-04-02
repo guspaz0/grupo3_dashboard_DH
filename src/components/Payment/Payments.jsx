@@ -9,7 +9,7 @@ function Payments({id, reducer, setReducer}) {
 
     const [form,setForm] = useState({
         desde: '2023-12-01',
-        hasta: '2023-12-31',
+        hasta: new Date(Date.now()+24 * 60 * 60 * 999).toISOString().split('T')[0],
         estado: 'completado',
     })
 
@@ -59,7 +59,7 @@ function Payments({id, reducer, setReducer}) {
                             <td><Link to={`/dashboard/payments/${id}`} className="button">{id}</Link></td>
                             <td className="number">{total}</td>
                             <td className={status}>{status}</td>
-                            <td>{created_at}</td>
+                            <td>{new Date(created_at).toLocaleString()}</td>
                         </tr>)}
                     </tbody>
                 </table>}

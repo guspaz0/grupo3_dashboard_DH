@@ -15,7 +15,7 @@ function LastProduct({products}) {
           {images? <img className="imagenes" src={images[0].pathName} alt={images[0].pathName}/> : <></>}
           <span>
             <b>Nombre</b>
-            <Link to={`/dashboard/product/${id}`}>{name}</Link>
+            <Link to={`/dashboard/products/${id}`}>{name}</Link>
           </span>
           <span>
             <b>Precio</b>
