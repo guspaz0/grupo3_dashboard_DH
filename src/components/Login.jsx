@@ -30,7 +30,6 @@ function Login({user, setUser}) {
             const data = await response.json();
             if (response.status == 401 && Object.keys(data).length > 0) setErrors(data)
             else {
-                sessionStorage.setItem('user', JSON.stringify(data))
                 setUser(data)
             }
         } catch (error) {

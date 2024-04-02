@@ -1,17 +1,25 @@
-import React from 'react'
-const { VITE_DB_HOST } = import.meta.env
+import React,{useEffect, useState} from 'react'
+import {useParams, Link} from 'react-router-dom'
+import fetchData from '../../utils/fetchData'
 
-function PaymentDetail({detail, setDetail}) {
+function PaymentDetail() {
 
-    function handleClose(e) {
-        e.preventDefault()
-        setDetail(null)
-    }
+    const {id} = useParams()
+
+    const [detail, setDetail] = useState()
+
+    useEffect(()=> {
+        fetchData(`/api/payment/${id}`)
+        .then(data => {
+            setDetail(data)
+        }).catch(error => alert(error))
+    },[id])
 
     return (
         <div className="detail">
+        <link href="\css\payments.css" rel="stylesheet"/>
         {detail? <div>
-            <button className="delete" onClick={handleClose}>X</button>
+            <Link to="/dashboard/payments" className="delete">X</Link>
             <span> 
                 <b>Referencia</b><p>{detail.id}</p> 
             </span>

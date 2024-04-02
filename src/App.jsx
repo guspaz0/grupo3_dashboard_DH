@@ -11,6 +11,8 @@ import Products from './components/Products/Products'
 import ProductCreate from './components/Products/ProductCreate'
 import Payments from './components/Payment/Payments'
 import Users from './components/Users'
+import PaymentMetrics from './components/Payment/PaymentMetrics'
+import PaymentDetail from './components/Payment/PaymentDetail'
 
 
 function App() {
@@ -20,12 +22,12 @@ function App() {
   const [user,setUser] = useState({access: false})
 
   //--------> guardamos el usuario en session storage unicamente para fase de testing. despues lo borramos > ----------------- //
-  useEffect(()=> {
-    if (sessionStorage.user) {
-      const userSession = JSON.parse(sessionStorage.user)
-      if (user != userSession) setUser(userSession)
-    }
-  },[sessionStorage])
+  // useEffect(()=> {
+  //   if (sessionStorage.user) {
+  //     const userSession = JSON.parse(sessionStorage.user)
+  //     if (user != userSession) setUser(userSession)
+  //   }
+  // },[sessionStorage])
 
   const Menu = [
     {id: 1, name: 'Inicio', route: '/dashboard'},
@@ -35,7 +37,12 @@ function App() {
         {name: 'Listado', route: '/dashboard/products'},
         {name: 'Crear Producto', route: 'dashboard/products/create'},
     ]},
-    {id: 5, name: 'Informe de Pagos', route: '/dashboard/payments'}
+    {id: 5, name: 'Informes de Ventas', endpoint:`/api/payment/metric`,
+      sublist: [
+        {name: 'Metricas', route: '/dashboard/payments/metrics'},
+        {name: 'Listados', route: '/dashboard/payments'}
+      ]
+    }
     
 ]
 
@@ -46,21 +53,28 @@ function App() {
     }})
 )
 
+  const [products, setProducts] = useState()
+
 useEffect(()=>{
   if (user.access) {
-    Menu.forEach(comp => {
-      let compState = reducer.find(state => state.id == comp.id).state
-      if (comp.endpoint && Object.keys(compState).length == 0) {
-          fetchData(comp.endpoint).then((data) => {
-              setReducer([
-                  ...reducer.filter(({id}) => id !== comp.id),
-                  {id: comp.id, state: data}
-              ])
-          })
-      }
+    const promises = Menu.map(comp => {
+      if (comp.endpoint && Object.keys(reducer.find(({id}) => id == comp.id).state).length == 0) {
+        return new Promise(resolve => resolve(fetchData(comp.endpoint)))
+          .then((data) => {return {id: comp.id, state: data}})
+      } else {return {id: comp.id, state: {}}}
     })
+    Promise.all(promises).then(data => {
+      setReducer(data)
+    })
+  } else {
+    setReducer(Menu.map(comp => {
+        return {
+          id: comp.id,
+          state: {}
+        }
+      }))
   }
-},[reducer,user])
+},[user])
 
 
   return (<>
@@ -75,6 +89,10 @@ useEffect(()=>{
             : <Inicio reducer={reducer} setReducer={setReducer}/>}/>
           <Route path="/dashboard/payments" element={!user.access? <Navigate to="/dashboard/login"/> 
             : <Payments id={5} reducer={reducer} setReducer={setReducer}/>}/>
+          <Route path="/dashboard/payments/metrics" element={!user.access? <Navigate to="/dashboard/login"/>
+            : <PaymentMetrics id={5} reducer={reducer} setReducer={setReducer}/>}/>
+          <Route path="/dashboard/payments/:id" element={!user.access? <Navigate to="/dashboard/login"/>
+            : <PaymentDetail/>}/>
           <Route path="/dashboard/products" element={!user.access? <Navigate to="/dashboard/login"/> 
             : <Products id={3} reducer={reducer} setReducer={setReducer}/>}/>
           <Route path="/dashboard/products/create" element={!user.access? <Navigate to="/dashboard/login"/> 
