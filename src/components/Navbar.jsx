@@ -7,7 +7,6 @@ export default function Navbar({user, setUser}){
 
     function handleLogout(e) {
         e.preventDefault()
-        sessionStorage.clear()
         setUser({access: false})
     }
 

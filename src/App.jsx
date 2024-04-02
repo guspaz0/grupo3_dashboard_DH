@@ -22,12 +22,12 @@ function App() {
   const [user,setUser] = useState({access: false})
 
   //--------> guardamos el usuario en session storage unicamente para fase de testing. despues lo borramos > ----------------- //
-  useEffect(()=> {
-    if (sessionStorage.user) {
-      const userSession = JSON.parse(sessionStorage.user)
-      if (user != userSession) setUser(userSession)
-    }
-  },[sessionStorage])
+  // useEffect(()=> {
+  //   if (sessionStorage.user) {
+  //     const userSession = JSON.parse(sessionStorage.user)
+  //     if (user != userSession) setUser(userSession)
+  //   }
+  // },[sessionStorage])
 
   const Menu = [
     {id: 1, name: 'Inicio', route: '/dashboard'},
@@ -66,6 +66,13 @@ useEffect(()=>{
     Promise.all(promises).then(data => {
       setReducer(data)
     })
+  } else {
+    setReducer(Menu.map(comp => {
+        return {
+          id: comp.id,
+          state: {}
+        }
+      }))
   }
 },[user])
 
