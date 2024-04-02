@@ -15,19 +15,6 @@
     gap: 10px;
 }
 
-.button {
-    border-radius: 5px;
-    border: hidden;
-    padding: 5px;
-    background-color: #1259c3;
-    color: white;
-    width: fit-content;
-    transition: 500ms;
-}
-.button:hover {
-    background-color: #5394b0;
-}
-
 canvas {
     min-width: 350px;
 }

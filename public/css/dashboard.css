@@ -69,6 +69,7 @@ p {
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    gap: 5px;
     border-bottom: solid 1px gray;
 }
 
@@ -79,6 +80,27 @@ p {
     align-items: center;
     gap: 10px;
     width: 100%;
+}
+.producto > span {
+    display:flex;
+    flex-direction: column;
+}
+
+.non-flex {
+    margin: auto;
+}
+
+.button {
+    border-radius: 5px;
+    border: hidden;
+    padding: 5px;
+    background-color: #1259c3;
+    color: white;
+    width: fit-content;
+    transition: 500ms;
+}
+.button:hover {
+    background-color: #5394b0;
 }
 
 @media (min-width: 760px) {

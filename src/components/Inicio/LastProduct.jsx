@@ -14,19 +14,23 @@ function LastProduct({products}) {
       <article className='producto'>
           {images? <img className="imagenes" src={images[0].pathName} alt={images[0].pathName}/> : <></>}
           <span>
-            <b className="tittled">Nombre:</b> {name}
-          </span>
-          <span className="precio number">
-            <b>Precio:</b> ${price}
+            <b>Nombre</b>
+            <Link to={`/dashboard/product/${id}`}>{name}</Link>
           </span>
           <span>
-            <b>Categoria:</b> {categories.name}
-          
+            <b>Precio</b>
+            <span className="precio number">${price}</span>
           </span>
           <span>
-            <b>Cantidad:</b> {colors.reduce((acum, {stock}) => acum+Number(stock),0)}
+            <b>Categ</b>
+            <span>{categories.name}</span>
           </span>
-          <Link to={`/dashboard/product/${id}`}>Detalle</Link>
+          <span>
+            <b>Cant</b>
+            <span>
+              {colors.reduce((acum, {stock}) => acum+Number(stock),0)}
+            </span>
+          </span>
       </article>
     </div>
   )

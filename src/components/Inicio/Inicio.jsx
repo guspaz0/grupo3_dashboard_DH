@@ -1,5 +1,7 @@
 import React,{useState, useEffect} from 'react'
 import LastProduct from './LastProduct'
+import PaymentMetrics from '../Payment/PaymentMetrics'
+import Loading from '../Loading'
 
 function Inicio({id, reducer, setReducer}) {
 
@@ -8,6 +10,7 @@ function Inicio({id, reducer, setReducer}) {
 
     return (<>
         <h3>Inicio</h3>
+        {Productos? 
         <div className='paneles'>
             <div className='panel'>
                 <p>Total de productos</p>
@@ -27,9 +30,14 @@ function Inicio({id, reducer, setReducer}) {
                 {Object.keys(Productos.countByCategory).map((category) => <span className='category' key={category}>
                     <b>{category}:</b><span>{Productos.countByCategory[category]}</span>
                 </span>
-)}
+                )}
             </div>}
+            <PaymentMetrics id={5} reducer={reducer} setReducer={setReducer}/>
         </div>
+        : <div>
+            Cargando...
+            <Loading/>
+        </div>}
         </>
     )
 }
