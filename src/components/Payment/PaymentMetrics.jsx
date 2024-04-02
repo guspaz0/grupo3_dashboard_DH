@@ -8,17 +8,6 @@ function PaymentMetrics({id, reducer, setReducer}) {
 
     const Selector = reducer.find((comp) => comp.id == id)?.state
     
-    useEffect(()=> {
-        if (Object.keys(Selector).length == 0 || !Selector.hasOwnProperty('totalSales')) {
-            fetchData(`/api/payment/metric`)
-            .then(data => {
-                setReducer([...reducer.filter(comp => comp.id !== id),
-                    {id, state:{ ...Selector,  ...data }}
-                ])
-            }).catch(error => alert(error.message))
-        }
-    },[])
-
     return (
         <div>
             <h3>Metricas de ventas</h3>

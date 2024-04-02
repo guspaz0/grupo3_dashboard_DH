@@ -37,7 +37,7 @@ function App() {
         {name: 'Listado', route: '/dashboard/products'},
         {name: 'Crear Producto', route: 'dashboard/products/create'},
     ]},
-    {id: 5, name: 'Informes de Ventas',
+    {id: 5, name: 'Informes de Ventas', endpoint:`/api/payment/metric`,
       sublist: [
         {name: 'Metricas', route: '/dashboard/payments/metrics'},
         {name: 'Listados', route: '/dashboard/payments'}
@@ -47,30 +47,24 @@ function App() {
 ]
 
   const [reducer, setReducer] = useState(
-    // Menu.map(comp => {return {
-    //     id: comp.id,
-    //     state: {}
-    // }})
-    [
-      {id: 1, state: {}},
-      {id: 2, state: {}},
-      {id: 3, state: {}},
-      {id: 5, state: {}},
-    ]
+    Menu.map(comp => {return {
+        id: comp.id,
+        state: {}
+    }})
 )
+
+  const [products, setProducts] = useState()
 
 useEffect(()=>{
   if (user.access) {
-    Menu.forEach(comp => {
-      let compState = reducer.find(state => state.id == comp.id).state
-      if (comp.endpoint && Object.keys(compState).length == 0) {
-          fetchData(comp.endpoint).then((data) => {
-              setReducer([
-                  ...reducer.filter(({id}) => id !== comp.id),
-                  {id: comp.id, state: data}
-              ])
-          })
-      }
+    const promises = Menu.map(comp => {
+      if (comp.endpoint && Object.keys(reducer.find(({id}) => id == comp.id).state).length == 0) {
+        return new Promise(resolve => resolve(fetchData(comp.endpoint)))
+          .then((data) => {return {id: comp.id, state: data}})
+      } else {return {id: comp.id, state: {}}}
+    })
+    Promise.all(promises).then(data => {
+      setReducer(data)
     })
   }
 },[user])

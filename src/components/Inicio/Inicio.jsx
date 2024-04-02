@@ -32,7 +32,7 @@ function Inicio({id, reducer, setReducer}) {
                 </span>
                 )}
             </div>}
-            {/* <PaymentMetrics id={5} reducer={reducer} setReducer={setReducer}/> */}
+            <PaymentMetrics id={5} reducer={reducer} setReducer={setReducer}/>
         </div>
         : <div>
             Cargando...
