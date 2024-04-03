@@ -1,4 +1,4 @@
-import React,{ useState,useEffect } from 'react'
+import React,{ useState,useEffect, createContext } from 'react'
 import { Route, useLocation, Routes, Navigate } from 'react-router-dom'
 import fetchData from './utils/fetchData'
 import Navbar from './components/Navbar'
@@ -14,6 +14,7 @@ import Users from './components/Users'
 import PaymentMetrics from './components/Payment/PaymentMetrics'
 import PaymentDetail from './components/Payment/PaymentDetail'
 
+const GlobalState = createContext(null)
 
 function App() {
 
@@ -88,26 +89,28 @@ useEffect(()=>{
           <SideBar Menu={Menu}/>
         </React.Fragment> : <Navigate to="/dashboard/login"/>}
       <div className='container'>
-      <Routes>
-          <Route path="/dashboard" element={!user.access? <Navigate to="/dashboard/login"/> 
-            : <Inicio reducer={reducer} setReducer={setReducer}/>}/>
-          <Route path="/dashboard/payments" element={!user.access? <Navigate to="/dashboard/login"/> 
-            : <Payments id={5} reducer={reducer} setReducer={setReducer}/>}/>
-          <Route path="/dashboard/payments/metrics" element={!user.access? <Navigate to="/dashboard/login"/>
-            : <PaymentMetrics id={5} reducer={reducer} setReducer={setReducer}/>}/>
-          <Route path="/dashboard/payments/:id" element={!user.access? <Navigate to="/dashboard/login"/>
-            : <PaymentDetail/>}/>
-          <Route path="/dashboard/products" element={!user.access? <Navigate to="/dashboard/login"/> 
-            : <Products id={3} reducer={reducer} setReducer={setReducer}/>}/>
-          <Route path="/dashboard/products/create" element={!user.access? <Navigate to="/dashboard/login"/> 
-            : <ProductCreate id={3} reducer={reducer} setReducer={setReducer}/>}/>
-          <Route path="/dashboard/products/:id" element={!user.access? <Navigate to="/dashboard/login"/> 
-            : <ProductDetail />}/>
-          <Route path="/dashboard/users" element={!user.access? <Navigate to="/dashboard/login"/> 
-            : <Users id={2} reducer={reducer} setReducer={setReducer}/>}/>
-        <Route path="/dashboard/login" element={<Login user={user} setUser={setUser}/>}/>
-        <Route path="*" element={<Error/>}/>
-      </Routes>
+      <GlobalState.Provider value={{reducer, setReducer}}>
+        <Routes>
+            <Route path="/dashboard" element={!user.access? <Navigate to="/dashboard/login"/> 
+              : <Inicio GlobalState={GlobalState}/>}/>
+            <Route path="/dashboard/payments" element={!user.access? <Navigate to="/dashboard/login"/> 
+              : <Payments id={5} GlobalState={GlobalState}/>}/>
+            <Route path="/dashboard/payments/metrics" element={!user.access? <Navigate to="/dashboard/login"/>
+              : <PaymentMetrics id={5} GlobalState={GlobalState}/>}/>
+            <Route path="/dashboard/payments/:id" element={!user.access? <Navigate to="/dashboard/login"/>
+              : <PaymentDetail/>}/>
+            <Route path="/dashboard/products" element={!user.access? <Navigate to="/dashboard/login"/> 
+              : <Products id={3} GlobalState={GlobalState}/>}/>
+            <Route path="/dashboard/products/create" element={!user.access? <Navigate to="/dashboard/login"/> 
+              : <ProductCreate id={3} GlobalState={GlobalState}/>}/>
+            <Route path="/dashboard/products/:id" element={!user.access? <Navigate to="/dashboard/login"/> 
+              : <ProductDetail />}/>
+            <Route path="/dashboard/users" element={!user.access? <Navigate to="/dashboard/login"/> 
+              : <Users id={2} GlobalState={GlobalState}/>}/>
+          <Route path="/dashboard/login" element={<Login user={user} setUser={setUser}/>}/>
+          <Route path="*" element={<Error/>}/>
+        </Routes>
+      </GlobalState.Provider>
     </div>
     </>
   )

@@ -1,12 +1,15 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { useEffect } from 'react'
 import {Link} from 'react-router-dom'
+import PropTypes from 'prop-types'
 import fetchData from '../../utils/fetchData'
 
 
-function PaymentMetrics({id, reducer, setReducer}) {
+function PaymentMetrics(props) {
 
-    const Selector = reducer.find((comp) => comp.id == id)?.state
+    const {reducer, setReducer} = useContext(props.GlobalState)
+
+    const Selector = reducer?.find((comp) => comp.id == props.id)?.state
     
     return (
         <div>
@@ -46,6 +49,11 @@ function PaymentMetrics({id, reducer, setReducer}) {
 
     </div>
     )
+}
+
+PaymentMetrics.propTypes = {
+    id: PropTypes.number,
+    GlobalState: PropTypes.object
 }
 
 export default PaymentMetrics
