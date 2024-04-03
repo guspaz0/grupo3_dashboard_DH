@@ -18,11 +18,11 @@ function Products({id, reducer, setReducer}) {
                             created_at, updated_at, deleted_at, favorites, detail } = product
                             {return <article key={id+name}>
                                 <img src={images[0].pathName} alt={images[0].pathName}/>
-                                <p>{name}</p>
+                                <p><Link to={`/dashboard/products/${product.id}`}>{name}</Link></p>
                                 <p>{categories.name}</p>
                                 <p className='price number'>${price}</p>
                                 <p>{colors.reduce((acum,{stock})=> acum+Number(stock),0)}</p>
-                                <p><Link to={`/dashboard/product/${product.id}`}>Detalle</Link></p>
+                                <p></p>
                             </article>}
                         })
                     }

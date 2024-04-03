@@ -23,7 +23,7 @@ function PaymentMetrics({id, reducer, setReducer}) {
                     {Selector.topProduct.map(({cantidadVendida, product})=> {
                         let {name, line, price, created_at, categories} = product
                         return <span key={name} className='category'>
-                            <Link to={`/dashboard/product/${product.id}`}>({product.id}){name}</Link>
+                            <Link to={`/dashboard/products/${product.id}`}>{name}</Link>
                             {cantidadVendida}/{(cantidadVendida/Selector.totalSales.quantity*100).toFixed(2)}%
                         </span>})}
                 </div>
@@ -33,7 +33,7 @@ function PaymentMetrics({id, reducer, setReducer}) {
                     {Selector.lastProductSales.map((prod,i) => {
                         let {product_id, name, price, cantidad, payment_id} = prod
                         return <article key={product_id+name} className='category'>
-                            <Link className="non-flex" to={`/dashboard/product/${product_id}`}>{name}</Link>
+                            <Link className="non-flex" to={`/dashboard/products/${product_id}`}>{name}</Link>
                             <span >{cantidad}</span>
                             <Link to={`/dashboard/payments/${payment_id}`} className='button'>{payment_id}</Link>
                         </article>
