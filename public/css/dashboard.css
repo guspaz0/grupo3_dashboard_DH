@@ -1,0 +1,121 @@
+article:-webkit-autofill {
+    display: flex;
+}
+#root {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 5px;
+    grid-template-areas: "SideBar content";
+}
+p {
+    margin: 0px;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+}
+
+* {
+    box-sizing: content-box;
+}
+
+.container {
+    grid-column: 1;
+    grid-row: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.paneles {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: space-around;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 10px
+}
+
+.panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    border: solid 1px black;
+    border-radius: 5px;
+    padding: 0px 10px 10px 0px;
+}
+
+.panel > p {
+    background-color: #32A97E;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    padding: 5px;
+    width: 100%;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+}
+.imagenes { 
+    width: 50px
+}
+
+.category {
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 5px;
+    border-bottom: solid 1px gray;
+}
+
+.producto {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+.producto > span {
+    display:flex;
+    flex-direction: column;
+}
+
+.non-flex {
+    margin: auto;
+}
+
+.button {
+    border-radius: 5px;
+    border: hidden;
+    padding: 5px;
+    background-color: #1259c3;
+    color: white;
+    width: fit-content;
+    transition: 500ms;
+}
+.button:hover {
+    background-color: #5394b0;
+}
+
+@media (min-width: 760px) {
+    .container {
+        grid-column: 2;
+        grid-row: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 10px;
+    }
+}
+@media (min-width: 500px) {
+    .producto {
+        flex-direction: row;
+    }
+}

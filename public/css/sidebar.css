@@ -1,0 +1,50 @@
+
+.sideMenu {
+    grid-column: 1;
+    grid-row: 2;
+}
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 5px;
+    border: solid 1px black;
+    padding: 10px;
+}
+
+
+.sidebar > ul {
+    display: flex;
+    flex-direction: row;
+    align-items: space-evenly;
+    flex-wrap: wrap;
+    gap: 10px;
+    list-style: none;
+    margin-inline-start: 0px;
+    padding-inline-start: 0px;
+}
+li > ul {
+    display: flex;
+    flex-direction: column;
+
+}
+
+@media (min-width: 760px) {
+
+    .sideMenu {
+        grid-column: 1;
+        grid-row: 2;
+    }
+    
+    .sidebar.sideMenu > ul {
+        margin-inline-start: 0px;
+        padding-inline-start: 5px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        gap: 5px;
+        list-style: none;
+        margin: 0px;
+    }
+}
