@@ -10,9 +10,10 @@ import ProductDetail from './components/Products/ProductDetail'
 import Products from './components/Products/Products'
 import ProductCreate from './components/Products/ProductCreate'
 import Payments from './components/Payment/Payments'
-import Users from './components/Users'
+import Users from './components/Users/Users'
 import PaymentMetrics from './components/Payment/PaymentMetrics'
 import PaymentDetail from './components/Payment/PaymentDetail'
+import DetailUsers from './components/Users/DetailUsers'
 
 
 function App() {
@@ -105,6 +106,8 @@ useEffect(()=>{
             : <ProductDetail />}/>
           <Route path="/dashboard/users" element={!user.access? <Navigate to="/dashboard/login"/> 
             : <Users id={2} reducer={reducer} setReducer={setReducer}/>}/>
+          <Route path="/dashboard/users/:id" element={!user.access? <Navigate to="/dashboard/login"/> 
+            : <DetailUsers/>}/>  
         <Route path="/dashboard/login" element={<Login user={user} setUser={setUser}/>}/>
         <Route path="*" element={<Error/>}/>
       </Routes>
