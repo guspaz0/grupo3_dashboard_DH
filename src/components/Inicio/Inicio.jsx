@@ -18,7 +18,7 @@ function Inicio({id, reducer, setReducer}) {
             </div>
             <div className='panel'>
                 <p>Total de Usuarios</p>
-                {Usuarios? Usuarios.length : null}
+                {Usuarios? Usuarios.count : null}
             </div>
             <div className='panel'>
                 <p>Total de Categorias</p>
