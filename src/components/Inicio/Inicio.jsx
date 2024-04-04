@@ -21,7 +21,7 @@ function Inicio(props) {
             </div>
             <div className='panel'>
                 <p>Total de Usuarios</p>
-                { Usuarios.length}
+                {Usuarios? Usuarios.count : null}
             </div>
             <div className='panel'>
                 <p>Total de Categorias</p>
