@@ -5,7 +5,7 @@ import './CardUser.css'
 function CardUser({Usuario}) {
   return (
     <>
-    {Usuario.map((element, index) => ( 
+    {Usuario?.map((element, index) => ( 
       <div className='card-user' key={index}>
         <div id="linea-frontal-card">
         <h3>ID de usuario: {element.id}</h3>

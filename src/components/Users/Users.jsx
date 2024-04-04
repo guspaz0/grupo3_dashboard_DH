@@ -6,7 +6,7 @@ function Users(props) {
 
   const {reducer, setReducer } = useContext(props.GlobalState)
 
-  const allUsers = reducer.filter((elemento) => elemento.id === props.id);
+  const allUsers = reducer?.filter((elemento) => elemento.id === props.id);
 
   const usuarios = allUsers[0].state.users
  
