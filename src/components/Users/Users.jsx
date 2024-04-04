@@ -1,10 +1,12 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import CardUser from './CardUser';
 import "./Users.css"
 
-function Users({id, reducer, setReducer}) {
+function Users(props) {
 
-  const allUsers = reducer.filter((elemento) => elemento.id === id);
+  const {reducer, setReducer } = useContext(props.GlobalState)
+
+  const allUsers = reducer?.filter((elemento) => elemento.id === props.id);
 
   const usuarios = allUsers[0].state.users
  
@@ -18,7 +20,6 @@ function Users({id, reducer, setReducer}) {
     </div>
   );
 }
-
 
 
 export default Users;
