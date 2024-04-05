@@ -1,19 +1,25 @@
-import React,{useContext} from 'react';
+import React,{useEffect, useState } from 'react';
 import CardUser from './CardUser';
+import fetchData from '../../utils/fetchData';
 import "./Users.css"
 
 function Users(props) {
 
-  const {reducer, setReducer } = useContext(props.GlobalState)
+  const [allUsers, setAllUsers] = useState()
 
-  const allUsers = reducer?.filter((elemento) => elemento.id === props.id);
+  const usuarios = allUsers?.users
 
-  const usuarios = allUsers[0].state.users
- 
+  useEffect(()=> {
+    fetchData(`/api/users?key=allUsers`)
+      .then(data => {
+        setAllUsers(data)
+    })
+  },[])
+
   return (
     <div >
       <h3>Usuarios</h3>
-      <h4>total de usuarios {allUsers[0].state.count}</h4>
+      <h4>total de usuarios {allUsers?.count}</h4>
       <div id="cartas-contenedor">
       <CardUser Usuario={usuarios}/>
       </div>

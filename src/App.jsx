@@ -15,7 +15,7 @@ import PaymentMetrics from './components/Payment/PaymentMetrics'
 import PaymentDetail from './components/Payment/PaymentDetail'
 import DetailUsers from './components/Users/DetailUsers'
 
-const GlobalState = createContext(null)
+export const GlobalState = createContext(null)
 
 function App() {
 
@@ -31,7 +31,7 @@ function App() {
         {name: 'Listado', route: '/dashboard/products'},
         {name: 'Crear Producto', route: '/dashboard/products/create'},
     ]},
-    {id: 5, name: 'Informes de Ventas', endpoint:`/api/payment/metric`,
+    {id: 5, name: 'Informes de Ventas',
       sublist: [
         {name: 'Metricas', route: '/dashboard/payments/metrics'},
         {name: 'Listados', route: '/dashboard/payments'}
@@ -46,30 +46,30 @@ function App() {
     }})
   )
 
-useEffect(()=>{
-  if (user.access) {
-    const promises = Menu.map(comp => {
-      let compState = reducer.find(({id}) => id == comp.id).state
-      if (comp.endpoint && Object.keys(compState).length == 0) {
-        return new Promise(resolve => resolve(fetchData(comp.endpoint)))
-          .then((data) => {
-            return {id: comp.id, state: data}})
-      } else if (!comp.endpoint) {
-        return {id: comp.id, state: {}}
-      }
-    })
-    Promise.all(promises).then(data => {
-      setReducer(data)
-    })
-  } else {
-    setReducer(Menu.map(comp => {
-        return {
-          id: comp.id,
-          state: {}
-        }
-      }))
-  }
-},[user])
+// useEffect(()=>{
+//   if (user.access) {
+//     const promises = Menu.map(comp => {
+//       let compState = reducer.find(({id}) => id == comp.id).state
+//       if (comp.endpoint && Object.keys(compState).length == 0) {
+//         return new Promise(resolve => resolve(fetchData(comp.endpoint)))
+//           .then((data) => {
+//             return {id: comp.id, state: data}})
+//       } else if (!comp.endpoint) {
+//         return {id: comp.id, state: {}}
+//       }
+//     })
+//     Promise.all(promises).then(data => {
+//       setReducer(data)
+//     })
+//   } else {
+//     setReducer(Menu.map(comp => {
+//         return {
+//           id: comp.id,
+//           state: {}
+//         }
+//       }))
+//   }
+// },[user])
 
 
   return (<>
@@ -82,21 +82,21 @@ useEffect(()=>{
       <GlobalState.Provider value={{reducer, setReducer}}>
         <Routes>
             <Route path="/dashboard" element={!user.access? <Navigate to="/dashboard/login"/> 
-              : <Inicio GlobalState={GlobalState}/>}/>
+              : <Inicio />}/>
             <Route path="/dashboard/payments" element={!user.access? <Navigate to="/dashboard/login"/> 
               : <Payments id={5} GlobalState={GlobalState}/>}/>
             <Route path="/dashboard/payments/metrics" element={!user.access? <Navigate to="/dashboard/login"/>
-              : <PaymentMetrics id={5} GlobalState={GlobalState}/>}/>
+              : <PaymentMetrics/>}/>
             <Route path="/dashboard/payments/:id" element={!user.access? <Navigate to="/dashboard/login"/>
               : <PaymentDetail/>}/>
             <Route path="/dashboard/products" element={!user.access? <Navigate to="/dashboard/login"/> 
-              : <Products id={3} GlobalState={GlobalState}/>}/>
+              : <Products/>}/>
             <Route path="/dashboard/products/create" element={!user.access? <Navigate to="/dashboard/login"/> 
-              : <ProductCreate id={3} GlobalState={GlobalState}/>}/>
+              : <ProductCreate />}/>
             <Route path="/dashboard/products/:id" element={!user.access? <Navigate to="/dashboard/login"/> 
               : <ProductDetail />}/>
             <Route path="/dashboard/users" element={!user.access? <Navigate to="/dashboard/login"/> 
-              : <Users id={2} GlobalState={GlobalState}/>}/>
+              : <Users />}/>
             <Route path="/dashboard/users/:id" element={!user.access? <Navigate to="/dashboard/login"/> 
             : <DetailUsers/>}/>
           <Route path="/dashboard/login" element={<Login user={user} setUser={setUser}/>}/>

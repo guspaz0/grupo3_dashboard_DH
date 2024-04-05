@@ -1,15 +1,28 @@
-import React,{useState, useEffect, useContext } from 'react'
+import React,{useState, useEffect } from 'react'
 import LastProduct from './LastProduct'
 import PaymentMetrics from '../Payment/PaymentMetrics'
 import Loading from '../Loading'
 import PropTypes from 'prop-types'
+import fetchData from '../../utils/fetchData'
 
 function Inicio(props) {
 
-    const {reducer, setReducer} = useContext(props.GlobalState)
+    const [state, setState] = useState()
 
-    const Productos = reducer?.find(state => state.id == 3).state
-    const Usuarios = reducer?.find(state => state.id == 2).state
+    const Productos = state?.find(state => state.id == 3).state
+    const Usuarios = state?.find(state => state.id == 2).state
+
+    useEffect(()=> {
+        const promises = [
+            new Promise(resolve => resolve(fetchData(`/api/users?key=allUsers`)))
+                .then(data => {return {id: 2, state: data}}),
+            new Promise(resolve => resolve(fetchData(`/api/products`)))
+                .then(data => {return {id: 3, state: data}})
+        ]
+        Promise.all(promises).then(data => {
+            setState(data)
+        })
+    },[])
 
     return (<>
         <h3>Inicio</h3>
@@ -35,7 +48,7 @@ function Inicio(props) {
                 </span>
                 )}
             </div>}
-            <PaymentMetrics id={5} GlobalState={props.GlobalState}/>
+            <PaymentMetrics />
         </div>
         : <div>
             Cargando...
@@ -46,22 +59,11 @@ function Inicio(props) {
 }
 
 Inicio.propTypes = {
-    id: PropTypes.number,
-    GlobalState: PropTypes.object
+
 }
 
 Inicio.defaultProps = {
-    id: 0,
-    GlobalState: {
-        reducer: [
-            {id: 2, state: {}},
-            {id: 3, state: {
-                count: 0,
-                products: [],
-                countByCategory: {}}}
-        ],
-        setReducer: () => {}
-    }
+
 }
 
 export default Inicio

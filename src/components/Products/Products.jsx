@@ -1,11 +1,20 @@
 import React,{useEffect, useState, useContext} from 'react'
+import fetchData from '../../utils/fetchData';
 import { Link } from 'react-router-dom';
 
 function Products(props) {
 
-    const { reducer, setReducer } = useContext(props.GlobalState)
+    //const { reducer, setReducer } = useContext(props.GlobalState)
 
-    const Productos = reducer?.find((comp) => comp.id == props.id).state
+    //const Productos = reducer?.find((comp) => comp.id == props.id).state
+
+    const [Productos, setProductos] = useState()
+
+    useEffect(()=> {
+        fetchData(`/api/products`).then(data => {
+            setProductos(data)
+        })
+    },[])
 
     return (
         <>
@@ -15,7 +24,7 @@ function Products(props) {
                 <span className='header'>
                     <b>Imagen</b><b>Nombre</b><b>Categoria</b><b>Precio</b><b>Stock</b><b></b>
                 </span>
-                    {Productos.products.map((product) => {
+                    {Productos?.products.map((product) => {
                         const { name, description, line, categories, colors, images, price,
                             created_at, updated_at, deleted_at, favorites, detail } = product
                             {return <article key={name}>

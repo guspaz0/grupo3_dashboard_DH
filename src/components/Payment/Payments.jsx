@@ -1,4 +1,4 @@
-import React,{useEffect, useState, useContext} from 'react';
+import React,{useEffect, useState, useContext, useMemo} from 'react';
 import {Link} from 'react-router-dom'
 import LineChart from '../Charts/LineChart'
 import fetchData from '../../utils/fetchData';
@@ -58,7 +58,7 @@ function Payments(props) {
                     <caption>Ultimos Pagos</caption>
                     <tbody>
                         <tr><th>Detalle</th><th>Total</th><th>Estado</th><th>Fecha</th></tr>
-                        {Selector.data.map(({id,total,status,created_at,updated_at}) => <tr key={id}>
+                        {Selector?.data.map(({id,total,status,created_at,updated_at}) => <tr key={id}>
                             <td><Link to={`/dashboard/payments/${id}`} className="button">{id}</Link></td>
                             <td className="number">{total}</td>
                             <td className={status}>{status}</td>
