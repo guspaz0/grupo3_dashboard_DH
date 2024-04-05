@@ -1,8 +1,12 @@
-import React,{useEffect, useState} from 'react'
+import React,{useEffect, useState, useContext} from 'react'
 import {useParams, Link, useNavigate} from 'react-router-dom'
 import fetchData from '../../utils/fetchData'
+import { GlobalState } from '../../App'
+import { popUpTimer } from '../../utils/popUps'
 
 function PaymentDetail() {
+
+    const {reducer, setReducer} = useContext(GlobalState)
 
     const {id} = useParams()
     const navigate = useNavigate()
@@ -35,15 +39,20 @@ function PaymentDetail() {
                 id: detail.id,
                 status: form.status
             },'PUT').then(data => {
-                console.log(data)
-                //setDetail(data)
+                if (data.error) {
+                    popUpTimer(data.message, 6)
+                } else {
+                    setDetail(data)
+                }
             })
         }
     }
 
+
     return (
         <div className="detail">
         <link href="\css\payments.css" rel="stylesheet"/>
+        <link href="\css\popups.css" rel="stylesheet"/>
         {detail? <div>
             <button onClick={() => navigate(-1)}className="delete">Volver</button>
             <span> 

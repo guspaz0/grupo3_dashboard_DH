@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useState,useContext} from 'react'
 import { useEffect } from 'react'
 import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
@@ -7,33 +7,39 @@ import fetchData from '../../utils/fetchData'
 
 function PaymentMetrics(props) {
 
-    const {reducer, setReducer} = useContext(props.GlobalState)
 
-    const Selector = reducer?.find((comp) => comp.id == props.id)?.state
+    const [metrics, setMetrics] = useState()
+
+    useEffect(()=> {
+        fetchData(`/api/payment/metric`)
+        .then(data => {
+            setMetrics(data)
+        })
+    },[])
     
     return (
         <div>
             <h3>Metricas de ventas</h3>
-            {Selector.totalSales? <div className='paneles'>
+            {metrics?.totalSales? <div className='paneles'>
                 <div className='panel'>
                     <p>Totales de Ventas</p>
-                    <span><b>Cantidad productos:</b> {Selector.totalSales?.quantity}</span>
-                    <span><b>Monto:</b> <span className='number'>{Number(Selector.totalSales?.totalAmount).toFixed(2)}</span></span>
+                    <span><b>Cantidad productos:</b> {metrics?.totalSales?.quantity}</span>
+                    <span><b>Monto:</b> <span className='number'>{Number(metrics?.totalSales?.totalAmount).toFixed(2)}</span></span>
                 </div>
                 <div className='panel'>
                     <p>Productos mas vendidos</p>
                     <span className='category'><b>Nombre</b><b>Cant/particip.</b></span>
-                    {Selector.topProduct.map(({cantidadVendida, product})=> {
+                    {metrics?.topProduct.map(({cantidadVendida, product})=> {
                         let {name, line, price, created_at, categories} = product
                         return <span key={name} className='category'>
                             <Link to={`/dashboard/products/${product.id}`}>{name}</Link>
-                            {cantidadVendida}/{(cantidadVendida/Selector.totalSales.quantity*100).toFixed(2)}%
+                            {cantidadVendida}/{(cantidadVendida/metrics.totalSales.quantity*100).toFixed(2)}%
                         </span>})}
                 </div>
                 <div className='panel'>
                     <p>Ultimos Productos vendidos</p>
                     <span className='category'><b className='non-flex'>Nombre</b><b>Cant</b><b>Pago</b></span>
-                    {Selector.lastProductSales.map((prod,i) => {
+                    {metrics.lastProductSales.map((prod,i) => {
                         let {product_id, name, price, cantidad, payment_id} = prod
                         return <article key={product_id+name} className='category'>
                             <Link className="non-flex" to={`/dashboard/products/${product_id}`}>{name}</Link>
