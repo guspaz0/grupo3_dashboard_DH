@@ -19,8 +19,6 @@ export default function DetailUsers(){
         })
     },[])
 
-console.log(usuario)
-
 
 return(
 <>

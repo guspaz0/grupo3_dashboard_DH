@@ -1,5 +1,6 @@
 import React,{useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
+import fetchData from '../utils/fetchData';
 const {VITE_DB_HOST} = import.meta.env
 
 function Login({user, setUser}) {
@@ -19,18 +20,21 @@ function Login({user, setUser}) {
         e.preventDefault()
         try {
             const response = await fetch(`http://${VITE_DB_HOST}/api/user/login`,{
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(logInfo),
-            credentials: "include"
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(logInfo),
+                credentials: "include"
             });
             const data = await response.json();
             if (response.status == 401 && Object.keys(data).length > 0) setErrors(data)
             else {
-                setUser(data)
+                sessionStorage.setItem('token', JSON.stringify(data))
+                fetchData(`/api/user/profile`).then(userData => {
+                    setUser(userData)
+                })
             }
         } catch (error) {
             console.log(error)
