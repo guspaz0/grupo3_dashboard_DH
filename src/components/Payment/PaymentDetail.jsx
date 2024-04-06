@@ -78,7 +78,7 @@ function PaymentDetail() {
                 </form>
             </span>
             <span>
-                <b>Usuario:</b>({detail.user.id}){detail.user.apellido}, {detail.user.nombre}
+                <b>Usuario:</b>({detail.user?.id}){detail.user?.apellido}, {detail.user?.nombre}
             </span>
             <table>
                 <tbody>
