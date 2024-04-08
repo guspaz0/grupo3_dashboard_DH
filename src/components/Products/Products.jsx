@@ -1,18 +1,21 @@
 import React,{useEffect, useState, useContext} from 'react'
 import fetchData from '../../utils/fetchData';
 import { Link } from 'react-router-dom';
+import { GlobalState } from '../../App';
 
-function Products(props) {
-
-    //const { reducer, setReducer } = useContext(props.GlobalState)
-
-    //const Productos = reducer?.find((comp) => comp.id == props.id).state
+function Products() {
+    
+    const {reducer,setReducer} = useContext(GlobalState)
 
     const [Productos, setProductos] = useState()
 
     useEffect(()=> {
         fetchData(`/api/products`).then(data => {
             setProductos(data)
+            setReducer([
+                ...reducer.filter((comp)=> comp.id != 3),
+                {id: 3, state: data}
+            ])
         })
     },[])
 
