@@ -29,8 +29,9 @@ function Login({user, setUser}) {
                 credentials: "include"
             });
             const data = await response.json();
-            if (response.status == 401 && Object.keys(data).length > 0) setErrors(data)
-            else {
+            if (response.status == 401 && Object.keys(data).length > 0) {
+                setErrors({email: 'solo administradores'})
+            } else {
                 sessionStorage.setItem('token', JSON.stringify(data))
                 fetchData(`/api/user/profile`).then(userData => {
                     setUser(userData)
