@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom'
 
 
+
 export default function SideBar({Menu}) {
 
 
@@ -11,10 +12,10 @@ export default function SideBar({Menu}) {
         <b>Menu</b>
         <ul>
             {Menu.map(({id,name, route, sublist}) => {
-            if (!sublist) return <li key={id}><Link to={route}>{name}</Link></li>
-            else return <li key={id+name}>{name}
+            if (!sublist) return <li className="buttonPrincipal" key={id}><Link to={route}>{name}</Link></li>
+            else return <li className="buttonPrincipal" key={id+name}>{name}
                     <ul>
-                        {sublist.map((sub) => <li key={name+sub.name}><Link to={sub.route}>{sub.name}</Link></li>)}
+                        {sublist.map((sub) => <li className='buttonSublist' key={name+sub.name}><Link to={sub.route}>{sub.name}</Link></li>)}
                     </ul>
                 </li>
             })}
