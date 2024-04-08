@@ -1,10 +1,24 @@
-import React,{useState, useContext} from 'react'
+import React,{useState, useContext, useEffect} from 'react'
 import { GlobalState } from '../../App.jsx'
+import fetchData from '../../utils/fetchData.js'
+import ntc from '../../utils/ntc.js'
 
 function ProductCreate() {
 
-  const {reducer} = useContext(GlobalState)
-  const allProducts = reducer.find((p) => p.id == 3).state
+  const {reducer, setReducer} = useContext(GlobalState)
+  const allProducts = reducer.find(p => p.id == 3).state
+
+  useEffect(()=> {
+    if (Object.keys(allProducts).length == 0) {
+        fetchData(`/api/products`)
+        .then(data => {
+            setReducer([
+                ...reducer.filter(e => e.id != 3),
+                {id: 3, state: data}
+            ])}
+        )
+    }
+  },[])
 
   const [errors, setErrors] = useState({})
 
@@ -21,13 +35,21 @@ function ProductCreate() {
         stock: 1
       }
     ],
-    image: [''],
+    image: [],
     price: 0,
   })
 
   function handleChange(e){
     const {name,value} = e.target
-    setForm({...form, [name]: value})
+    if (name == "color") {
+        const closestHex = ntc.name(value)
+        setForm({...form, colorStock: [
+            ...colorStock.filter(c => c)
+        ]})
+    } else {
+        setForm({...form, [name]: value})
+    }
+
   }
 
   function handleSubmit(e) {
@@ -38,6 +60,7 @@ function ProductCreate() {
 
   return (
     <div>
+        <link href="\css\createForm.css" rel="stylesheet"/>
     <span className="tituloCreate">
             <p>Creacion de Producto</p>
         </span>
@@ -52,15 +75,16 @@ function ProductCreate() {
                 onChange={handleChange}
                 />
             {errors.name? 
-              <small id="name" className="errors">{errors.name.msg}</small>
+                <small id="name" className="errors">{errors.name.msg}</small>
             : <></>}
             <label htmlFor="description"><b>Descripcion:</b></label>
             <textarea 
                 id="description" 
                 name="description"
                 placeholder="Ingresar descripcion..."
-                onChange={handleChange}>{form.description}
-              </textarea>
+                value={form.description}
+                onChange={handleChange}>
+            </textarea>
             {errors.description? 
                 <small id="description" className="errors">{errors.description.msg}</small>
             : <></>}
@@ -74,9 +98,10 @@ function ProductCreate() {
             </fieldset>
             <label htmlFor="category"><b>Categoria:</b>
                 <select id="category" name="category" value={form.category} onChange={handleChange}>
-                    {allProducts.countByCategory.map((name) => 
-                      <option key={name} value={name}>{name}</option>
-                    )}
+                    {allProducts.hasOwnProperty('countByCategory')? 
+                    Object.keys(allProducts.countByCategory).map((name) => 
+                        <option key={name} value={name}>{name}</option>
+                    ) : <></>}
                 </select>
             </label>
             {errors.category? 
@@ -85,10 +110,9 @@ function ProductCreate() {
             <fieldset className="container-colorinputs">
                 <legend><b>Colores</b></legend>
             {form.colorStock.map(({color,stock},i) => { 
-                  let background=`color:${color};`
-                  return <div key={i+color}>
-                        <input className={`c+${i}`} type="color" name="color" id="color" value={color} onChange={handleChange}/>
-                        <span id={`c${i}`} style={background}></span>
+                return <fieldset key={i+color}>
+                    <legend id={`c${i}`} style={{color: `${color}`}}>{color}</legend>
+                        <input className={`c+${i}`} type="color" name="color" id={i} value={color} onChange={handleChange}/>
                         {errors.color?
                             <small id="color" className="errors">{errors.color.msg}</small>
                         : <></> }
@@ -97,8 +121,8 @@ function ProductCreate() {
                         {errors.stock?
                             <small id="stock" className="errors">{errors.stock.msg}</small>
                         : <></>}
-                    </div>
-              })}
+                    </fieldset>
+            })}
                 <span id="agregar" className="button">Agregar color</span>
             </fieldset>
 
@@ -130,8 +154,8 @@ function ProductCreate() {
                 />
             </div>
             <span id="imageRender">
-                {form.files.length > 0?
-                    form.files.map((el,i) => <span key={i+el.originalname}>
+                {form.image.length > 0?
+                    form.image.map((el,i) => <span key={i+el.originalname}>
                             <small>{`${el.originalname}, ${(el.size/1024).toFixed(2)}KB`}</small>
                             <input name="imageHold" type="hidden" value={el.path}/>
                             <img id="inValidation" src={el.path} alt={el.originalname}/>
