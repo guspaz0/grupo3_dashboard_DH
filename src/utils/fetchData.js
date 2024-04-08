@@ -6,7 +6,8 @@ async function fetchData(endpoint, body, method) {
             method: body? method? method : 'POST' : 'GET',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'authorization': JSON.parse(sessionStorage.token)
             },
             credentials: "include",
             body: body? JSON.stringify(body) : null

@@ -57,7 +57,7 @@ function ProductDetail() {
                 <span className="color"> <p>Color:</p>
                 {colors.map(({stock, color},i) => <span key={i}>
                     <i className="colorIcon" style={{ backgroundColor: color.hex}}></i>
-                    <p>{color.name}</p>
+                    <p>{color.name_es}</p>
                     <small>Stock: {stock}</small>
                     </span>)}
                 </span>

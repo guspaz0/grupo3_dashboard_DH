@@ -1,11 +1,14 @@
-import React,{useEffect, useState} from 'react';
+import React,{useEffect, useState, useContext, useMemo} from 'react';
 import {Link} from 'react-router-dom'
 import LineChart from '../Charts/LineChart'
 import fetchData from '../../utils/fetchData';
+import PropTypes from 'prop-types'
 
-function Payments({id, reducer, setReducer}) {
+function Payments(props) {
 
-    const Selector = reducer.find(comp => comp.id == id).state
+    const {reducer, setReducer} = useContext(props.GlobalState)
+
+    const Selector = reducer.find(comp => comp.id == props.id).state
 
     const [form,setForm] = useState({
         desde: '2023-12-01',
@@ -24,8 +27,8 @@ function Payments({id, reducer, setReducer}) {
         fetchData(`/api/payment?desde=${form.desde}&hasta=${form.hasta}&estado=${form.estado}`)
         .then(data => {
             setReducer([
-                ...reducer.filter(comp => comp.id !== id),
-                {id, state: {...Selector, ...data}}
+                ...reducer.filter(comp => comp.id !== props.id),
+                {id: props.id, state: {...Selector, ...data}}
             ])
         }).catch(error => alert(error.message))
     }
@@ -55,7 +58,7 @@ function Payments({id, reducer, setReducer}) {
                     <caption>Ultimos Pagos</caption>
                     <tbody>
                         <tr><th>Detalle</th><th>Total</th><th>Estado</th><th>Fecha</th></tr>
-                        {Selector.data.map(({id,total,status,created_at,updated_at}) => <tr key={id}>
+                        {Selector?.data.map(({id,total,status,created_at,updated_at}) => <tr key={id}>
                             <td><Link to={`/dashboard/payments/${id}`} className="button">{id}</Link></td>
                             <td className="number">{total}</td>
                             <td className={status}>{status}</td>
@@ -72,6 +75,19 @@ function Payments({id, reducer, setReducer}) {
 
     </div>
     )
+}
+
+Payments.propTypes = {
+    id: PropTypes.number,
+    GlobalState: PropTypes.object
+}
+
+Payments.defaultProps = {
+    id: 5,
+    GlobalState: {
+        reducer: [{id: 5, state: {}}],
+        setReducer: ()=>{}
+    }
 }
 
 export default Payments

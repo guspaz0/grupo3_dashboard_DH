@@ -1,6 +1,11 @@
 * {
     font-family: 'Gidole';
 }
+
+body{
+    background-color: #e5e9e6;
+}
+
 nav {
     grid-column: span 2;
     gap: 10px
@@ -68,7 +73,9 @@ a.logoa{
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    background-color: #3ecf9c;
     margin: 0;
+    padding: 15px;
 }
 nav {
     height: fit-content;
@@ -83,7 +90,7 @@ nav ul {
 }
 .loginNavbar {
     min-width: 20%;
-    max-width: 40%;
+    max-width: 55%;
     display: flex;
     flex-direction: row;
     align-items: center;
