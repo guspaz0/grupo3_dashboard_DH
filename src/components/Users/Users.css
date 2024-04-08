@@ -1,5 +1,4 @@
 #cartas-contenedor{
-    background-color: rgb(232, 255, 232);
     display: flex;
     flex-wrap: wrap
 }

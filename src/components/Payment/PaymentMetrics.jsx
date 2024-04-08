@@ -20,7 +20,7 @@ function PaymentMetrics(props) {
     return (
         <div>
             <h3>Metricas de ventas</h3>
-            {metrics?.totalSales? <div className='paneles'>
+            {metrics?.totalSales? <div className='paneles1'>
                 <div className='panel'>
                     <p>Totales de Ventas</p>
                     <span><b>Cantidad productos:</b> {metrics?.totalSales?.quantity}</span>
