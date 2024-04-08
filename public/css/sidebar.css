@@ -32,6 +32,27 @@ li > ul {
    
 
 }
+.buttonPrincipal {
+    background-color: #3ECF9C;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+    font-weight: bold;
+    text-decoration: none;
+
+}
+
+.buttonSublist {
+    color: gray;
+    list-style-type: circle;
+    text-decoration: none;
+
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
 
 @media (min-width: 760px) {
 
