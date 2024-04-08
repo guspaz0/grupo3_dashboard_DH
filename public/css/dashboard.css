@@ -29,7 +29,17 @@ p {
 
 .paneles {
     display: flex;
-    flex-direction: row;
+    flex-direction: row-reverse;
+    align-items: start;
+    justify-content: space-around;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 10px
+}
+
+.paneles1{
+    display: flex;
+    flex-direction: row-reverse;
     align-items: start;
     justify-content: space-around;
     gap: 10px;

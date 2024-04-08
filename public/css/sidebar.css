@@ -2,6 +2,7 @@
 .sideMenu {
     grid-column: 1;
     grid-row: 2;
+    background-color: #b6e5db;
 }
 .sidebar {
     display: flex;
@@ -23,10 +24,12 @@
     list-style: none;
     margin-inline-start: 0px;
     padding-inline-start: 0px;
+    
 }
 li > ul {
     display: flex;
     flex-direction: column;
+   
 
 }
 
