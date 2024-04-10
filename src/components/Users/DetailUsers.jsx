@@ -12,22 +12,24 @@ export default function DetailUsers(){
         useEffect(()=> {
         fetchData(`/api/users/${id}`)
         .then((data) => {
-           if(data){
+            if(data){
                 
                 setUsuario(data)
-           }
+            }
         })
     },[])
 
 
 return(
 <>
+<link rel="stylesheet" href="/css/userDetail.css"></link>
+
     <h2>{usuario.nombre} {usuario.apellido}</h2>
     <h3>Usuario creado: {usuario.created_at}</h3>
     {usuario.admin === 0? <h3>Usuario administrador</h3> : <h3>Usuario no administrador</h3>}
     { usuario.imagen != "" 
-    ?<img src={usuario.imagen} style={{ width: '100px', height: '100px', borderRadius: '50%' }}/>
-    :<img src={imagenPublic} style={{ width: '100px', height: '100px', borderRadius: '50%' }}/>
+    ?<img src={usuario.imagen} className="imgProfile" alt={`${usuario.nombre.slice(0,1)+usuario.apellido.slice(0,1)}`}/>
+    :<img src={imagenPublic} className="imgProfile" />
 
     }
     <div id="info-user"> 
