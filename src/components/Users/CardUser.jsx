@@ -18,7 +18,10 @@ function CardUser({Usuario}) {
     const {name,value} = e.target
     fetchData(`/api/user/${value}/delete`,{id: value}, 'DELETE')
     .then(data => {
-      console.log(data)
+      fetchData(`/api/users?key=allUsers`)
+      .then(users => {
+        setUser(users.users)
+      })
     })
   }
 
