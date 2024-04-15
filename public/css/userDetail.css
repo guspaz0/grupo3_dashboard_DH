@@ -23,11 +23,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: space-evenly;
-    border: solid 1px black;
     padding: 10px;
     border-radius: 5px;
     gap: 5px;
     width: 300px;
+    background-color: #B6E5DB;
+    box-shadow: 3px 3px 10px 0px gray;
 }
 
 #otros-datos > span, #info-user > span {

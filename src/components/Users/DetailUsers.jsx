@@ -25,11 +25,9 @@ return(
 {usuario?<>
     <h2>{usuario.nombre} {usuario.apellido}</h2>
     <span><b>Usuario creado:</b> {usuario.created_at}</span>
-    {usuario.admin === 0? <h3>Usuario Administrador</h3> : <h3>Usuario Comun</h3>}
-    {usuario.imagen !== ""? <img src={usuario.imagen} className="imgProfile" alt={`${usuario.nombre.slice(0,1)+usuario.apellido.slice(0,1)}`}/>
-    : <img src={imagenPublic} className="imgProfile" />
+    {usuario.admin? <h3>Usuario Administrador</h3> : <h3>Usuario Comun</h3>}
+    <img src={usuario.imagen} className="imgProfile" alt={`${(usuario.nombre.slice(0,1)+usuario.apellido.slice(0,1)).toUpperCase()}`}/>
 
-    }
     <div id="info-user"> 
     <span><b>ID Usuario:</b><p> {usuario.id}</p></span>
     <span><b>Email:</b><p> {usuario.email}</p></span>
