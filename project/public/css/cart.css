@@ -1,0 +1,165 @@
+* {
+    font-family: 'Gidole';
+    box-sizing: border-box;    
+}
+
+body{
+    margin: 0;
+    padding: 0;
+}
+
+tbody{
+    width: 100%;
+}
+
+
+
+.cart-modal {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding-top: 10px;
+}
+
+.cart-modal th {
+    border-bottom: solid 4px black;
+}
+.cart-modal tr td {
+    padding: 5px;
+    text-align: center;
+    border-bottom: solid 2px gray;
+}
+.cartdetail #product {
+    text-align: left;
+    justify-content: center;
+    gap: 5px;
+}
+.cartdetail td#X {
+    font-weight: bold;
+    color: red;
+    text-align: center;
+    transition: 500ms;
+    font-size: 1rem;
+}
+td#X:hover {
+    color: white;
+    background-color: red;
+}
+.cartresume {
+    padding: 10px;
+    border-radius: 5px;
+    border: solid 1px gray;
+}
+.cartresume span {
+    border-bottom: solid 5px gray;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    gap: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.cartresume button {
+    border-radius: 5px;
+    border: hidden;
+    padding: 5px;
+    background-color: #26775b;
+    color: white;
+    width: 35%;
+    transition: 500ms;
+}
+.cartresume button:hover {
+    background-color: #2f9b75;
+}
+input[type="number"] {
+    -webkit-appearance: textfield;
+       -moz-appearance: textfield;
+            appearance: textfield;
+    text-align: center;
+    width: 50px;
+    border: none;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+}
+td > a {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+td > img {
+    max-height: 70px;
+    max-width: 100px;
+}
+
+.tdcolors{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 88px;
+   
+}
+
+#finalizarcompra{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px 0 5px 0;
+    
+}
+
+#cartenvio{
+    display: flex;
+    flex-direction: column;
+}
+#calcularEnvio{
+    display: flex;
+    flex-direction: column;
+    align-items: center
+}
+
+
+#labels {
+    display: flex;
+    width: 50%;
+    justify-content: space-between;
+}
+
+
+
+
+
+@media (max-width: 570px) {
+    .cartdetail img, #precio, #thprecio, #tdcomodin {
+        display: none;
+    }
+    
+    
+}
+
+
+@media (min-width: 805px) {
+    .cart-modal {
+        display: grid;
+        grid-template-columns: 1fr fit-content(60%);
+        gap: 10px;
+        grid-template-areas: "cartdetail cardresume";
+    }
+    .cart-modal section {
+        overflow: hidden;
+    }
+    .cartdetail {
+        grid-column: 1;
+    }
+    .cartdetail table {
+        width: 100%;
+    }
+    .cardresume {
+        grid-column: 2;
+    }
+}

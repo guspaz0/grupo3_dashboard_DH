@@ -1,0 +1,20 @@
+<% let { id, images, categories, price, name, colors, stock } = producto %>
+<article>
+    <img src=<%= images[0].pathName %> alt=<%= name %>/>
+    <a class="titulocard" href="/products/<%= id %>"><%= name %></a>
+    <p class="category"><%= categories.name %></p>
+    <ul class="color">
+        <% colors.forEach(({stock, color}) => { let background = `background-color:${color.hex};color:${color.hex};border-radius:50%; border:0.1px-solid-black;;` %>
+            <li><i style=<%= background %>>oo</i></li>
+        <% }) %>
+    </ul>
+    <p class="price number">$<%= price %></p>
+    <p class="stock"><%= colors.reduce((acum, {stock}) => acum+Number(stock), 0) %></p>
+    <span class="actions">
+        <a href="/products/<%= id %>/edit"><button class="edit">Editar</button></a>
+        <form action="/products/<%= id %>/delete?_method=DELETE" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este producto?');">
+            <input type="hidden">
+            <button type="submit" class="delete"><i class="fa-solid fa-trash"></i></button>
+        </form>
+    </span>
+</article>

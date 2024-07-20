@@ -1,0 +1,68 @@
+<section class="profile">
+    <h2>Mis Datos</h2>
+    <% let { id, nombre, apellido, email, calle, calleNumero, provincia, imagen, codigoPostal, piso, departamento } = userData %>
+    <span>
+        <img class="perfil" src="<%= imagen %>" alt="<%= nombre.slice(0,1).toUpperCase()+apellido.slice(0,1).toUpperCase() %>"/>
+    </span>
+    <span>
+        <div>
+            <b>ID:</b> 
+            <t id="userID"><%= id %></t>
+        </div>
+        <p><b>Nombre:</b> <%= nombre %>, <%= apellido %></p>
+        <p><b>email:</b> <%= email %></p>
+        <p><b>Provincia:</b> <%= provincia %></p>
+        <p><b>Domicilio:</b> <%= calle %> <%= calleNumero %> </p>
+        <% if (piso) { %>
+            <p><b>Piso:</b> <%= piso %></p>
+        <% } %>
+        <% if (departamento) { %>
+            <p><b>Departamento:</b> <%= departamento %> </p>
+        <% } %>
+        <p><b>Codigo Postal:</b> <%= codigoPostal %></p>
+    </span>
+    
+</section>
+<section class="userData">
+<ul class="submenu">
+    <a href="/users/<%= id %>/update"><li>Editar Perfil</li></a>
+    <a><li>Mis productos</li></a>
+    <a><li>Mis favoritos</li></a>
+    <a><li>Cambiar contraseña</li></a>
+    <a href="http://localhost:5174/dashboard/login" target="_blank"><li>Dashboard</li></a>
+</ul>
+
+<section class="payments productsAdmin">
+    <h2>Mis Productos</h2>
+    <span>
+        <button class="create"><a href="/products/create">Crear Producto</a></button>
+        <button id="category" class="create">Crear Categoria</button>
+    </span>
+    <section class="pagination">
+        <span><a class="arrow-prev1 arrow-cards"></a></span>
+        <% for (let p = 1; p <= Math.ceil(productos.length/10); p++ ) { %>
+            <span class="<%= p == 1? "currentPage" : "" %>"><a id="page"><%= p %></a></span>
+        <% } %>
+        <span><a class="arrow-next1 arrow-cards"></a></span>
+    </section>
+    <span class="header">
+        <p>imagen</p>
+        <p class="name">Nombre</p>
+        <p class="category">categoria</p>
+        <p class="color">Colores</p>
+        <p class="price">Precio</p>
+        <p class="stock">Stock</p>
+        <p class="action">Accion</p>
+    </span>
+<% productos.slice(0,10).forEach((producto) => { %>
+    <%- include('./card.ejs', {producto}) %>
+<% }) %>
+<small id="paginado">pagina <b id="currentPage">1</b> de <b><%= Math.ceil(productos.length/10) %></b> mostrando 10 elementos por pagina</small>
+    
+
+</section>
+<%- include('./userFavorites.ejs',{favoritos}) %>
+ <%- include('./changePassword.ejs', {userData}) %>
+</section>
+
+    <script src="\scripts\profileAdmin.js"></script>

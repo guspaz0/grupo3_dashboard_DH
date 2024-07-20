@@ -1,0 +1,169 @@
+
+
+body {
+    margin-bottom: 4.5vh;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.contenedor-form{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        font-weight: bold;
+        background-color: #32A97F;
+        padding: 10px;
+        width: 100%;
+        border-radius: 5px;
+        margin: 5px 0 5px 0;
+        max-width: 500px;
+    
+
+    }
+
+.inputform{
+    margin: 15px;
+}
+
+.contenedor-form input{
+    width: 100%;
+    max-width: 500px;
+    border-radius: 5px;
+    padding: 5px;
+    border: none;
+}
+.contenedor-form select {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 5px;
+    padding: 5px;
+    border: none;
+}
+
+.contenedor1{
+    width: 100%;
+    margin: 0;
+}
+
+.contenedor2{
+    width: 100%;
+    margin: 0;
+}
+
+input.send {
+    border-radius: 5px;
+    border: hidden;
+    padding: 10px 16px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+    background-color: #1f634b;
+    color: white;
+    width: 35%;
+    transition: 500ms;
+}
+input.send:hover {
+    background-color: #2f9b75;
+}
+
+/* input.uploadFile {
+    border-radius: 5px;
+    border: hidden;
+    padding: 5px;
+    background-color: #1259c3;
+    color: white;
+    width: 35%;
+    transition: 500ms;
+}
+input.uploadFile:hover {
+    background-color: #5394b0;
+} */
+
+input[type="file"] {
+    position: absolute;
+    z-index: -1;
+    top: 10px;
+    left: 8px;
+    font-size: inherit;
+    color: #b8b8b8;
+}
+
+.button-wrap {
+    position: relative;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #1f634b;
+    font-size: inherit;
+    font-weight: bold;
+    color: #fff;
+    transition: all 500ms;
+}
+.button:hover {
+    background-color: #2f9b75;
+}
+.requiredinput:valid {
+    border: 2px solid green;
+}
+.requiredinput:invalid {
+    border: 2px solid red
+}
+.requiredinput:valid {
+    border: 2px solid green;
+}
+.requiredinput:invalid {
+    border: 2px solid red
+}
+.error-contraseña {
+    color: rgb(131, 1, 1);
+    font-size: 75%
+}
+.error-required{
+display: none;
+color: rgb(131, 1, 1);
+font-size: 85%;
+margin: 0 0 2px 0 ;
+
+}
+
+#errorCodigoPostal , #errorNumero{
+    display: none;
+    color: rgb(131, 1, 1);
+    font-size: 85%;
+    margin: 0 0 2px 0 ;
+}
+
+@media (min-width: 760px){
+
+    .contenedor-form{
+        width: 50%;
+        max-width: 700px;
+    
+
+    }
+
+}
+
+@media (min-width: 1200px){
+    main{
+        margin: 15px 0 0 0;
+    }
+    .contenedores{
+        display: flex;
+        justify-content: center;
+    }
+    .contenedor-form {
+        width: 65%;
+        max-width: 1200px;
+    }
+      
+}

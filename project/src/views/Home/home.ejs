@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <%- include('../partials/head.ejs') %>
+        <link href="\css\home.css" rel="stylesheet"/>
+        <link href="\css\card.css" rel="stylesheet"/>
+    </head>
+<body>
+    <%- include('../partials/navbar.ejs') %>
+    <main>
+        <section class="carousel">
+            <span id="item-1"></span>
+            <span id="item-2"></span>
+            <span id="item-3"></span>
+            <div class="carousel-item item-1">
+                <a href="#item-3" class="arrow-prev arrow"></a>
+                <a href="#item-2" class="arrow-next arrow"></a>
+            </div>
+            <div class="carousel-item item-2">
+                <a href="#item-1" class="arrow-prev arrow"></a>
+                <a href="#item-3" class="arrow-next arrow"></a>
+            </div>
+            <div class="carousel-item item-3">
+                <a href="#item-2" class="arrow-prev arrow"></a>
+                <a href="#item-1" class="arrow-next arrow"></a>
+            </div>
+        </section>
+        <section class="productos">
+                <p>Tienda/Productos</p>
+                <ul>
+                    <li><img src="/images/Taza.png" alt="img taza"/><a href="">Tazas</a></li>
+                    <li><img src="/images/mate.png" alt="img mate"/><a href="">Mates</a></li>
+                    <li><img src="/images/paletaPintura.png" alt="img ilustracion"/><a href="">Ilustraciones</a></li>
+                </ul>
+            <section class="cards">
+                <% sublimados.forEach((producto) => { %>
+                    <%- include('./card.ejs', {producto}) %>
+                <% }) %>
+            </section>
+        </section>
+        <section class="lineaArtesanal">
+            <p>Linea 100% Artesanal</p>
+            <ul>
+                <li><img src="/images/mate.png" alt="img mate"/><a href="">Mates</a></li>
+                <li><img src="/images/paletaPintura.png" alt="img ilustracion"/><a href="">Cuadros</a></li>
+            </ul>
+            <section class="cards">
+                <% artesanales.forEach((producto) => { %>
+                    <%- include('./card.ejs', {producto}) %>
+                <% }) %>
+            </section>
+        </section>
+        <p class="servParroquias">Servicio para parroquias</p>
+    </main>
+    <%- include('../partials/footer.ejs') %>
+    <script src="\scripts\home.js"></script>
+</body>
+</html>

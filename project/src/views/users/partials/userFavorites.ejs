@@ -1,0 +1,32 @@
+<section class="favoritos">
+    <h3>Mis Favoritos</h3>
+    <!-- <section class="pagination">
+        <span><a class="arrow-prev1 arrow-cards"></a></span>
+        <% let maxPage =  Math.ceil(favoritos.length/5); let page = 1; let perPage = 5%>
+        <% for (let p = 1; p <= maxPage; p++) { %>
+            <span class=<%= p == page? 'currentPage' : "" %>><a id="pageF"><%= p %></a></span>
+        <% } %>
+        <span><a class="arrow-next1 arrow-cards"></a></span>
+    </section> -->
+    <div class="favoritos1">
+        <span class="header">
+            <p>Imagen</p>
+            <p class="p">Nombre</p>
+            <p class="number" style="width: 15%;">Precio</p>
+            <i class="fa-solid fa-trash"></i>
+        </span>
+        <% favoritos.forEach(({id,name,price,images},index)=> { %>
+        <article>
+            <img src="<%= images[0].pathName %>">
+            <p><a href="/products/<%= id %>"><%= name %></a></p>
+            <p class="number">$<%= price %></p>
+            <span class="containerheart">
+                <div id="heart" class="heart">
+                    <div id="<%= id %>"class=""></div>
+                </div>
+            </span>
+        </article>
+        <% }) %>
+    </div>
+    <small id="paginadoF">pagina <b id="currentPageF"><%= page %></b> de <b><%= maxPage %></b> mostrando <%= perPage %> elementos por pagina</small>
+</section>

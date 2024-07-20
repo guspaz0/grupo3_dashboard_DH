@@ -1,0 +1,170 @@
+* {
+    font-family: 'Gidole';
+    box-sizing: border-box;
+}
+
+body {
+    margin-bottom: 4.5vh;
+}
+
+main {
+    margin: 15px 0 0 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-modal * {
+    font-family: 'Gidole';
+    font-size: 1.2rem;
+    border: hidden;
+}
+
+.login-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.login-modal form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    background-color: #32A97F;
+    padding: 20px;
+    width: 95%;
+    border-radius: 5px;
+    margin: 0 0 10px 0;
+    max-width: 500px;
+}
+
+.login-modal form label{
+    margin: 10px 0 0 0;
+}
+
+.login-modal input {
+    padding: 5px;
+    border-radius: 5px;
+    width: 85%;
+}
+
+.login-modal button {
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #1f634b;
+    color: white;
+    width: 35%;
+    margin: 10px 0 0 0;
+    transition: 500ms;
+}
+.login-modal button:hover {
+    background-color: #2f9b75;
+}
+.login-modal img {
+    /* min-width: 20vh;
+    width: 20vh;
+    max-height: 20vh; */
+    max-width: 140px
+}
+
+.contenedorCuenta{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contenedorCuenta p, .contenedorCuenta a{
+    padding: 0;
+    margin: 5px;
+    font-size: 15px;
+}
+.validacionusername:valid {
+    border: 2px solid green;
+}
+.validacionusername:invalid {
+    border: 2px solid red;
+}
+.validacionpassword:valid {
+    border: 2px solid green;
+}
+.validacionpassword:invalid {
+    border: 2px solid red;
+}
+
+
+#mensajePassword{
+    display: none;
+    color: rgb(131, 1, 1);
+    font-size: 90%;
+    margin: 0 0 5px 0 ;
+}
+#mensajeEmail{
+    display: none;
+    color: rgb(131, 1, 1);
+    font-size: 90%;
+    margin: 0 0 5px 0 ;
+}
+
+@media (min-width: 760px){
+    .login-modal img {
+        max-width: 170px
+    }
+
+    .login-modal form {
+    
+        width: 75%;
+        max-width: 600px;
+     
+    }
+    
+    .login-modal input {
+        width: 75%;
+    
+    }
+    .login-modal button {
+        
+        width: 16%;
+      
+    }
+
+    .contenedorCuenta p, .contenedorCuenta a{
+        padding: 0;
+        margin: 5px;
+        font-size: 20px;
+    }
+    
+
+
+}
+
+@media (min-width: 1200px){
+
+    main{
+     margin: 30px 0 0 0;
+
+    }
+    .login-modal form {
+    
+        max-width: 650px;
+     
+    }
+    
+    .login-modal input {
+        width: 60%;
+    
+    }
+
+    .contenedorCuenta p, .contenedorCuenta a{
+        padding: 0;
+        margin: 5px;
+        font-size: 18px;
+    }
+    
+
+
+
+}

@@ -1,0 +1,15 @@
+services:
+  vite-project:
+    container_name: dashboard
+    build: 
+      dockerfile: Dockerfile
+      context: ./
+    image: dashboard
+    env_file:
+      - .env
+    volumes:
+      - ./public/:/usr/code/public/
+      - ./src/:/usr/code/src/
+    ports:
+      - 5137:8080
+    command: npm run dev

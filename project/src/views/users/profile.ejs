@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <%- include('../partials/head.ejs') %>
+        <link rel="stylesheet" href="\css\popups.css">
+        <link href="\css\profile.css" rel="stylesheet"/>
+    </head>
+    <body>
+        <%- include('../partials/navbar.ejs') %>
+    <main>
+        <% if (locals.login && userData.admin) { %>
+            <%- include('./partials/profileAdmin.ejs', {userData}) %>
+        <% } else if (locals.login) { %>
+            <%- include('./partials/profileCommon.ejs', {userData, historialPagos, favoritos}) %>
+        <% } else { %>
+            <caption>Esta seccion es solo para usuarios registrados...</caption>
+            <a href="/users/register">Registrate</a> o <a href="/users/login">ingresá</a> si ya tienes cuenta
+        <% } %>
+    </main>
+    <%- include('../partials/footer.ejs') %>
+    <script src="/scripts/profile.js"> </script>
+    <script src="/scripts/subMenu.js"> </script>
+</body>
+</html>

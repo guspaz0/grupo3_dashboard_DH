@@ -1,0 +1,11 @@
+Paleta de colores:
+blanco: #FFFFFF
+negro: #000000
+verde: #32A97F
+Azul Bordes: #5394b0
+Verde Claro (background carrusel): #b6e5db
+
+Fuentes: 
+Bimbo (logo)
+Gistesy (titulos y subtitulos)
+Gidole (descripciones y textos largos)

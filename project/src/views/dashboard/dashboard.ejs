@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <%- include('../partials/head.ejs') %>
+        <link href="\css\dashboard.css" rel="stylesheet"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    </head>
+<body>
+    <%- include('../partials/navbar.ejs') %>
+    <main>
+        <div class="lastsales">
+            <table>
+                <caption>Ultimos Pagos</caption>
+                <tbody>
+                    <tr><th>Detalle</th><th>Total</th><th>Estado</th><th>Fecha</th></tr>
+                    <tr id="emptyRow"></tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h2>Informes de Pagos</h2>
+            <form id="payment">
+                <label for="fecha_desde">Desde:</label>
+                <input id="fecha_desde" type="date" name="desde" />
+                <label for="fecha_hasta">Hasta:</label>
+                <input id="fecha_hasta" type="date" name="hasta" />
+                <label for="estado">Estado:</label>
+                <select id="estado" name="estado" required>
+                    <option disabled selected value style="width:50px;">seleccionar</option>
+                    <option value="completado" class="completado">Completado</option>
+                    <option value="enproceso" class="enproceso">En Proceso</option>
+                    <option value="cancelado" class="cancelado">Cancelado</option>
+                    <option value="rechazado" class="rechazado">Rechazado</option>
+                </select>
+                <button type="submit" class="button">Enviar</button>
+            </form>
+            <div id="container">            
+                <div class="saleschart">
+                    <h3>Grafico Pagos</h3>
+                    <canvas id="paymentChart" style="width:100%;max-width:700px"></canvas>
+                </div>
+            </div>
+            <div id="topuser">            
+                <div class="topuser">
+                    <canvas id="userChart" style="width:100%;max-width:700px"></canvas>
+                </div>
+            </div>
+        </div>
+    </main>
+    <%- include('../partials/footer.ejs') %>
+    <script src="\scripts\dashboard.js"></script>
+</body>
+</html>

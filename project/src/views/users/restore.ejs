@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <%- include('../partials/head.ejs') %>
+        <link href="\css\restore.css" rel="stylesheet"/>
+    </head>
+<body>
+    <%- include('../partials/navbar.ejs') %>
+    <main>
+        <% if (!token) { %>
+        <h1 class="titulo">Restablecer Contraseña</h1>
+        <p>completa el formulario con tu email registrado en el sitio y te enviaremos un email a esa misma direccion con los pasos a seguir para el blanqueo de clave</p>
+        <form action="/users/restore" method="POST">
+            <label for="email">Email:</label>
+            <input id="email" type="email" name="email" placeholder="email..." />
+            <% if (locals.errors && errors.email) {%>
+                <small id="email" class="errors"><%= errors.email %></small>
+            <% } %>
+            <button>Enviar</button>
+        </form>
+        <% } else { %>
+            <h1 class="titulo">Restablecer Contraseña</h1>
+            <p>completa el formulario para restablecer la contraseña. Tienes 5 minutos. el Token deberia llegarte a tu casilla de Correo</p>
+            <form action="/users/restore/token" method="POST">
+                <fieldset>
+                    <legend><b>Contraseña</b></legend>
+                    <label for="password">Nueva</label>
+                    <input id="password" type="password" name="password" placeholder="Ingresa tu nueva contraseña..." />
+                <% if (locals.errors && errors.password) { %>
+                    <small id="password" class="errors"><%= errors.password %></small>
+                <% } %>
+                <label for="repeatPassword">Repetir</label>
+                <input id="repeatPassword" type="password" name="repeatPassword" placeholder="Ingresa tu nueva contraseña..." />
+                <% if (locals.errors && errors.password) { %>
+                    <small id="repeatPassword" class="errors"><%= errors.repeatPassword %></small>
+                <% } %>
+            </fieldset>
+                <label for="token"><b>Token:</b></label>
+                <textarea id="token" name="token" placeholder="token" rows="6" cols="60"></textarea>
+                <button>Enviar</button>
+            </form>
+        <% } %>
+    </main>
+    <%- include('../partials/footer.ejs') %>
+    <script src="\scripts\restore.js"></script>
+</body>
+</html>

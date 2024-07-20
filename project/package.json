@@ -1,0 +1,33 @@
+{
+  "name": "grupo_3_latiendademaria",
+  "version": "1.0.0",
+  "description": "**Nuestro cliente:** “La tienda de Maria”, es un emprendimiento que fabrica productos religiosos,cuenta con una linea estampada/sublimada, una linea artesanal pintada a mano y la venta de ilustraciones digitales.  La particularidad a destacar de este negocio es que cuenta con sus propias ilustraciones digitales, realizadas por la dueña, por lo que los productos se caracterizan por tener un estilo moderno y tierno, destacándose de los tradicionales productos con imágenes religiosas antiguas.",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon ./src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cloudinary": "^2.0.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.1",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "express-validator": "^7.0.1",
+    "googleapis": "^134.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "method-override": "^3.0.0",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^3.9.1",
+    "node-fetch": "^3.3.2",
+    "nodemailer": "^6.9.12",
+    "nodemon": "^3.0.1",
+    "sequelize": "^6.36.0"
+  }
+}

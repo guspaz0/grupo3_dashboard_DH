@@ -1,0 +1,25 @@
+<% let { id , nombre, apellido } = userData %>
+
+<section class="delete-acount">
+
+    <div id="contenedor-delete">
+        <h4>Estimado/a <%=nombre%> <%=apellido%></h4>
+        <br>
+        <br>
+        <p>Hemos notado que considera eliminar su cuenta. <br><br>
+             ¿Hay algo en lo que podamos ayudarle antes de que tome una decisión final?
+            <br><br>
+            Quedamos a su disposición para resolver cualquier inquietud que pueda tener. En caso de que desee proceder con la eliminación de su cuenta, por favor, confirme su identidad ingresando su contraseña.
+            
+            </p>
+            <br>
+            <h4 style="align-self: flex-end;">Atentamente La tienda de Maria</h4>
+            <div id="deleteMenu">
+                <span id="error-deleteacount">Error</span>
+                <input type="password" id="inputPassword" placeholder="Ingrese su contraseña" />
+                <button class="delete" id="<%= id %>" >Eliminar Cuenta</button>
+                <!--  -->
+            </div>
+    </div>
+
+</section>

@@ -1,0 +1,32 @@
+<% let {data, maxPage, perPage, page} = historialPagos %>
+<section class="payments" >
+    <h3>Mis Compras</h3>
+    <span class="header">
+        <b>Detalle</b>
+        <b>Total</b>
+        <b>Estado</b>
+        <b>Creado</b>
+        <b>Actualizado</b>
+    </span>
+    <% data.forEach(({id,total,status,created_at, updated_at}) => { %>
+        <article class="rows">
+            <button id="detail" class="button"><%= id %></button>
+            <p class="number"><%= total %></p>
+            <p class="<%= status %>"><%= status %></p>
+            <span><%= created_at.toISOString().split('T')[0] %>
+                <small><%= created_at.toISOString().split('T')[1].slice(0,5) %></small>
+            </span>
+            <span><%= updated_at.toISOString().replace('T',' ').slice(0,10) %>
+                <small><%= updated_at.toISOString().split('T')[1].slice(0,5) %></small>
+            </span>
+        </article>
+        <% }) %>
+        <small id="paginado">pagina <b id="currentPage"><%= page %></b> de <b><%= maxPage %></b> mostrando <%= perPage %> elementos por pagina</small>
+        <section class="pagination">
+            <span><a class="arrow-prev1 arrow-cards"></a></span>
+            <% for (let p = 1; p <= maxPage; p++) { %>
+                <span class=<%= p == page? 'currentPage' : "" %>><a id="page"><%= p %></a></span>
+            <% } %>
+            <span><a class="arrow-next1 arrow-cards"></a></span>
+        </section>
+</section>

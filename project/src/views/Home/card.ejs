@@ -1,0 +1,6 @@
+<% let { id, name, description, line, price, colors, images, categories } = producto %>
+<article>
+    <p class="titulocard"><%= name %></p>
+    <a href="/products/<%= id %>"><img src=<%= images[0].pathName %> alt=<%= name %>/></a>
+    <p>$<%= price %></p>
+</article>

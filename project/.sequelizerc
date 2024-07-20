@@ -1,0 +1,11 @@
+// .sequelizerc
+
+const path = require('path');
+
+module.exports = {
+  'config': path.resolve('./src/database/config', 'config.js'),  // Ruta del archivo de configuración de la base de datos
+  'models-path': path.resolve('./src/database/models'),            // Ruta del directorio de modelos
+  'seeders-path': path.resolve('./src/database/seeders'),          // Ruta del directorio de seeders (si usas seeders)
+  'migrations-path': path.resolve('./src/database/migrations')     // Ruta del directorio de migraciones
+};
+ 

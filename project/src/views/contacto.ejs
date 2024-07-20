@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <%- include('./partials/head.ejs') %>
+        <link href="\css\contacto.css" rel="stylesheet"/>
+    </head>
+    <body>
+        <%- include('./partials/navbar.ejs') %>
+        <main class="contacto">
+            <span>
+            <span class="titulo">
+                <p>Contacto</p>
+                <i class="fa-sharp fa-solid fa-paper-plane"></i>
+            </span>
+            
+            <div class="contenedorForm">
+                <strong>ENVIANOS TU CONSULTA</strong>
+            <form class='form-contacto' action="/contacto" method="POST">
+                <label for="nombre">Nombre:</label>
+                <input class="inputForm"
+                    id="nombre" 
+                    type="text" 
+                    name="nombre" 
+                    placeholder="Ingresa tu nombre"
+                />
+                <label for="email">E-mail:</label>  
+                <input class="inputForm"
+                
+                    id="email" 
+                    type="email" 
+                    name="email" 
+                    placeholder="Ingresa tu email" 
+                    required
+                />
+                
+                   <label for="tipo">Tipo:</label>
+                <span id="tipo">
+                    <label for="administrativo">Administrativo
+                    <input type="radio" name="tipo" id="administrativo" value="administrativo"/></label>
+                    <label for="comercial">Comercial
+                    <input  type="radio" name="tipo" id="comercial" value="comercial"/></label>
+                    <label for="sugerencia">Sugerencia
+                    <input type="radio" name="tipo" id="sugerencia" value="sugerencia"/></label>
+                    <label for="otros">Otros
+                    <input type="radio" name="tipo" id="otros" value="otros"/></label>
+                </span>
+              
+                <label  for="asunto">Asunto:</label>
+                <input class="inputForm"
+                    id="asunto"
+                    type="text"
+                    name="asunto"
+                    placeholder="asunto"
+                    required
+                />
+                <label for="mensaje">Mensaje: </label>
+                    <textarea id="mensaje" type="text" name="mensaje" placeholder="Ingrese el mensaje"></textarea>
+               
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+            </span>
+        </main>
+        <%- include('./partials/footer.ejs') %>
+        
+    </body>
+</html>

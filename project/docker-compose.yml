@@ -1,0 +1,15 @@
+services:
+  api:
+    container_name: la-tienda-de-maria
+    build: 
+      dockerfile: Dockerfile
+      context: ./
+    image: grupo_3_latiendademaria-api
+    env_file:
+      - .env
+    volumes:
+      - ./src/:/usr/code/src/
+      - ./public/:/usr/code/public/
+    ports:
+      - 3001:3001
+    command: npm start

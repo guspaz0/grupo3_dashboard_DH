@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head.ejs') %>
+    <link href="\css\registro.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="\css\popups.css">
+    <title>La tienda de Maria</title>
+</head>
+<body>
+    <%- include('../partials/navbar.ejs') %>
+    <main>
+        <h2>Registrate</h2>   
+    <article class="contenedor-form">
+        <form id="formulario" class="contenedores" action="/users/register" method="POST" enctype="multipart/form-data">
+            <div class="contenedor1">
+                <div class="inputform">
+                    <label for="nombre">Nombre/s:</label>
+                    <% if (locals.errors && errors.nombre) { %>
+                        <span id="error-nombre" class="error-required" style="display: block;"><%= errors.nombre.msg %></span>
+                    <% } %>
+                    <span id="error-nombre" class="error-required">Mensaje de error</span>
+                    <input 
+                        class="requiredinput"
+                        type="text"
+                        name="nombre"
+                        id="nombre"
+                        placeholder="ingrese su nombre"
+                        value="<%= body.nombre? body.nombre : null  %>"
+                    />
+                </div>
+                <div class="inputform">
+                    <label for="apellido">Apellido/s:</label>
+                    <% if (locals.errors && errors.apellido) { %>
+                        <span id="error-apellido" class="error-required" style="display: block;"><%= errors.apellido.msg %></span>
+                    <% } %>
+                    <span id="error-apellido" class="error-required">Mensaje de error</span>
+                    <input
+                        class="requiredinput"
+                        id="apellido"
+                        name="apellido"
+                        type="text"
+                        placeholder="Ingresar apellido"
+                        value="<%= body.apellido? body.apellido : null  %>"
+                    />
+                </div>
+                <div class="inputform">
+
+                    <label for="birthdate">fecha de nacimiento:</label>
+                    <% if (locals.errors && errors.fechaNacimiento) { %>
+                        <span id="error-fechaNacimiento" class="error-required" style="display: block;"><%= errors.fechaNacimiento.msg %></span>
+                    <% } %>
+                    <span id="error-fechaNacimiento" class="error-required">Mensaje de error</span>
+                    <input 
+                    class="requiredinput"
+                    type="date"
+                    name="fechaNacimiento"
+                    id="fechaNacimiento"
+                    value="<%= body.fechaNacimiento? body.fechaNacimiento : null  %>"
+                    />
+                </div>
+
+                <div class="inputform">   
+                    <% if (locals.errors && errors.provincia) { %>
+                        <span id="error-provincia" class="error-required" style="display: block;"><%= errors.provincia.msg %></span>
+                    <% } %>
+                    <label for="provincia">Provincia:</label>
+                    <span id="error-provincia" class="error-required">Mensaje de error</span>
+                    <input class="requiredinput" 
+                        id="provincia" 
+                        type="search" 
+                        name="provincia" 
+                        placeholder="buscar provincia por nombre" 
+                        value="<%= body?.provincia? body.provincia : "" %>"
+                    />
+                </div>
+                <div class="inputform">
+                    <label for="localidad">Localidad:</label>
+                    <span id="error-localidad" class="error-required">Mensaje de error</span>
+                    <input class="requiredinput"
+                        id="localidad" 
+                        type="search" 
+                        name="localidad" 
+                        placeholder="buscar localidad..." 
+                        value="<%= body?.localidad? body.localidad : "" %>"
+                    />
+                    <span id="errorLocalidad" class="error-required">Mensaje de error</span>
+                    <% if (locals.errors && errors.localidades) { %>
+                        <span id="errorLocalidad" class="error-required" style="display: block;"><%= errors.localidades.msg %></span>
+                    <% } %>
+                        <!-- <% localidades.forEach((el) => { %>
+                            <% if (locals.errors && errors.localidades) { %>
+                                <span class="errors"><%= errors.localidades.msg %></span>
+                            <% } %>
+                            <span id="errorLocalidad">Mensaje de error</span>
+                                <label id="<%= el.provincia.split(" ").join("") %>" for="<%= el.provincia %>" style="display:none;">Localidad: 
+                                <select id="<%= el.provincia %>" name="localidad">
+                                <option disabled selected value>- seleccionar -</option>
+                                <% el.localidades.forEach((loc) => { %>
+                                    <option value="<%= loc %>" <%= body.localidad == loc? "selected" : null %>><%= loc %></option>
+                                <% }) %>
+                            </select>
+                            </label>
+                        <% }) %> -->
+                </div>
+            <div class="inputform">
+                <label for="codigoPostal">Codigo postal:</label>
+                <% if (locals.errors && errors.codigoPostal) { %>
+                    <span id="errorCodigoPostal" style="display: block;"><%= errors.codigoPostal.msg %></span>
+                <% } %>
+                <span id="errorCodigoPostal" >Mensaje de error</span>
+                <input 
+                    type="text"
+                    name="codigoPostal"
+                    id="codigoPostal"
+                    placeholder="Codigo Postal"
+                    value="<%= body.codigoPostal? body.codigoPostal :  parseInt(0) %>"
+                />
+            </div>
+            <div class="inputform">
+                <label for="street">Calle:</label>
+                <% if (locals.errors && errors.calle) { %>
+                    <span class="errors"><%= errors.calle.msg %></span>
+                <% } %>
+                <input 
+                    type="text"
+                    name="calle"
+                    id="street"
+                    placeholder="calle"
+                    value="<%= body.calle? body.calle : null %>"
+                    />
+            </div>
+            <div class="inputform">
+                <label for="streetnumber">Numero:</label>
+                <% if (locals.errors && errors.calleNumero) { %>
+                    <span id="errorNumero" style="display: block;"><%= errors.calleNumero.msg %></span>
+                <% } %>
+                <span id="errorNumero">Mensaje de error</span>
+                <input 
+                    type="text"
+                    name="calleNumero"
+                    id="streetnumber"
+                    placeholder="Numero"
+                    value="<%= body.calleNumero ? body.calleNumero : parseInt(0) %>"
+                    />
+            </div>
+        </div>
+        <div class="contenedor2">
+            <div class="inputform button-wrap">
+                <label class=button for="imageinput">Imagen de perfil</label>
+                <% if (locals.errors && errors.imagen) { %>
+                    <span id="error-imagen" class="error-required" style="display: block;"><%= errors.imagen.msg %></span>
+                <% } %>
+                <span id="error-imagen" class="error-required">Mensaje de error</span>
+                <input 
+                class="requiredinput"
+                type="file"
+                name="imagen"
+                id="imageinput"
+                accept="image/jpeg, image/png, image/jpg"
+            />
+            <i id="iconoCheck" class="fas fa-check" style="color: green; font-size: 24px; display: none; position: absolute; left: 52%; bottom: 20%;"></i>
+        </div>
+            <div class="inputform">
+                <label for="buildingfloor">Piso:</label>
+                <% if (locals.errors && errors.piso) { %>
+                    <span class="errors" ><%= errors.piso.msg %></span>
+                <% } %>
+                <input 
+                    type="text"
+                    name="piso"
+                    id="buildingfloor"
+                    placeholder="Piso"
+                    value="<%= body.piso? body.piso : null %>"
+                    />
+            </div>
+            <div class="inputform">
+                <label for="departamento">Departamento:</label>
+                <% if (locals.errors && errors.departamento) { %>
+                    <span class="errors" ><%= errors.departamento.msg %></span>
+                <% } %>
+                <input 
+                    type="text"
+                    name="departamento"
+                    id="departamento"
+                    placeholder="Departamento"
+                    value="<%= body.departamento? body.departamento : null %>"
+                    />
+            </div>
+            <div class="inputform">
+                <label for="email">Email:</label>
+                <% if (locals.errors && errors.email) { %>
+                    <span id="error-email" class="error-required" style="display: block;"><%= errors.email.msg %></span>
+                <% } %>
+                <span id="error-email" class="error-required">Mensaje de error</span>
+                <input 
+                    class="requiredinput"
+                    type="email"
+                    name="email"
+                    id="email"
+                    placeholder="Email"
+                    value="<%= body.email? body.email : null %>"
+                    />
+            </div>
+            <div class="inputform">
+                <label for="userName">Nombre de usuario:</label>
+                <% if (locals.errors && errors.userName) { %>
+                    <span id="error-userName" class="error-required" style="display: block;"><%= errors.userName.msg %></span>
+                <% } %>
+                <span id="error-userName" class="error-required">Mensaje de error</span>
+                <input 
+                    class="requiredinput"
+                    type="text"
+                    name="userName"
+                    id="userName"
+                    placeholder="Nombre de usuario"
+                    value="<%= body.userName? body.userName : null %>"
+                />
+            </div>
+
+            <div class="inputform">
+                <label for="password">contraseña:</label>
+                <% if (locals.errors && errors.password) { %>
+                    <span id="error-password" class="error-required" style="display: block;"><%= errors.password.msg %></span>
+                <% } %>
+                <span id="error-password" class="error-required">Mensaje de error</span>
+                <input 
+                    class="requiredinput"
+                    type="password"
+                    name="password"
+                    id="password"
+                    placeholder="contraseña"
+                    value="<%= body.password? body.password : null %>"
+                    />
+            </div>
+            <div class="inputform">
+                <label for="repassword">repetir contraseña:</label>
+                <% if (locals.errors && errors.repassword) { %>
+                    <span id="error-repassword" class="error-required" style="display: block;"><%= errors.repassword.msg %></span>
+                <% } %>
+                <span id="error-repassword" class="error-required">Mensaje de error</span>
+                <input 
+                    class="requiredinput"
+                    type="password"
+                    name="repassword"
+                    id="repassword"
+                    placeholder="repetir contraseña"
+                    value="<%= body.repassword? body.repassword : null %>"
+                />
+            </div>
+            <div class="inputform">
+                <input type="submit" class="send" value="Registrar"/>
+            </div>
+        </div>
+        </form>
+    </article >
+</main>
+<%- include('../partials/footer.ejs') %>
+
+    <script src="\scripts\register.js"></script>
+
+</body>
+</html>

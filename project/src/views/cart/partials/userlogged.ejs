@@ -1,0 +1,78 @@
+<% let { id, nombre, apellido, provincia, localidad, codigoPostal, calle, calleNumero, piso, departamento, carrito } = cartDetail %>
+<div class="cart-modal">
+    <section class="cartdetail">
+        <table>
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th colspan="2">Producto</th>
+                    <th>Color</th>
+                    <th id="thprecio">Precio</th>
+                    <th>Cantidad</th>
+                    <th>Subtotal</th>
+                </tr>
+            <% carrito.forEach(el => { %>
+                <tr class="cartascart" id="product-<%= el.id %>-<%= el.colorSelected %>">
+                    <td id="X" onclick="eliminarProducto('<%= el.id %>', '<%= el.colorSelected %>')"><i class="fa-solid fa-trash"></i></td>
+                    <td ><img src="<%= el.images[0].pathName %>" alt="<%= el.name %>"/></td>
+                    <td id="product"><%= el.name %></td>
+                    <% let prodColor = el.colors.find(({color}) => color.id == el.colorSelected).color %>
+                    <% let background = `background-color:${prodColor.hex};color:${prodColor.hex};` %>
+                    <% let stocks = el.colors.find(({color}) => color.id == el.colorSelected).stock %>
+                    <td id="tdcolors" class="tdcolors"><i class="colorIcon" style=<%= background %>></i>stock: <%= parseInt(stocks) %></td>
+                    <td id="precio" class="number"><%= el.price %></td>
+                    <td class="sumarRestar">
+                        <button id="restar" onclick="this.parentNode.querySelector('input[type=number]').stepDown(); ">-</button>
+                        <input id="cantidad" type="number" min="1" placeholder="cantidad" name="cantidad" value="<%= el.cantidad %>" disabled />
+                        <button id="sumar" onclick="this.parentNode.querySelector('input[type=number]').stepUp();">+</button> 
+                    </td>
+                    <td id="subtotalproduct" class="total number"><%= (el.price*el.cantidad).toFixed(2) %></td>
+                </tr>
+            <% }); %>
+                <tr id="totales">
+                    <td id="totalesprecio" style="font-weight: bold;" colspan="4">Totales:</td>
+                    <td id="tdcomodin"></td>
+                    <td id="cantidadTotal" style="font-weight: bold;"><%= carrito.reduce((acum, el) => acum + el.cantidad, 0) %></td>
+                    <td id="precioSubTotal" class="number"><b class="number"><%= carrito.reduce((acum, el) => acum + (el.cantidad*el.price), 0).toFixed(2) %></b></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    <section class="cartresume">
+        <h2>Total del carrito</h2>
+        </br>
+  
+            <p><b>Destinatario:</b> <%= `${nombre} ${apellido}`%></p>
+            <p><b>Provincia:</b> <%= provincia %></p>
+            <p><b>Localidad:</b> <%= localidad %></p>
+            <p><b>Codigo postal:</b> <%= codigoPostal %></p>
+            <p><b>Calle:</b> <%= `${calle} ${calleNumero}` %></p>
+       
+        <span id="cartsubtotal">
+            <h3>Total</h3>
+            <p id="subtotalfinal" class="number"><%= carrito.reduce((acum, el) => acum + (el.cantidad*el.price), 0).toFixed(2) %></p>
+        </span>
+        <span id="cartenvio">
+            <div id="calcularEnvio">
+                <h3>¿Necesitas envío?</h3>
+                <div id="labels">
+                <label for="administrativo">Si
+                <input type="radio" name="tipoEnvio" id="SiEnvio" value="true"/></label>
+                <label for="comercial">No
+                <input  type="radio" name="tipoEnvio" id="NoEnvio" value="false" checked/></label>
+            </div>
+            </div>
+            
+                <p>El método de envío se determina<br>
+                posterior a la compra.<br>
+                Para consultas o cotizaciones de<br>
+                envío,<br>
+                por favor contáctenos.</p>
+              
+        </span>
+        <div id="finalizarcompra">
+        <button onclick="prefinalizacion('<%= id %>')">Finalizar Compra</button>
+       </div>
+
+    </section>
+</div>

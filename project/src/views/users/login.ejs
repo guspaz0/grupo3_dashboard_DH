@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <%- include('../partials/head.ejs') %>
+        <link href="\css\login.css" rel="stylesheet"/>
+    </head>
+   <body>
+    <%- include('../partials/navbar.ejs') %>
+    <main>
+        <div class="login-modal">
+            <!-- <img src="https://assets.stickpng.com/images/585e4beacb11b227491c3399.png" alt="profile"/> -->
+            <form id="formulario-login" action="/users/login" method="POST">
+                <label for="email">Usuario / E-mail</label>
+                <% if (locals.errors && errors.email) { %>
+                    <span id="mensajeEmail" style="display: block;"><%= errors.email.msg %></span>
+                <% } %>
+                <span id="mensajeEmail">Mensaje de error</span>
+                <input 
+                    type="text"
+                    name="email"
+                    id="email"
+                    placeholder="Ingresar email"
+                    
+                    class="validacionusername"
+                    value="<%= body.email? body.email : null %>"
+                />
+                <label for="password">Contraseña</label>
+                <% if (locals.errors && errors.password) { %>
+                    <span id="mensajePassword" style="display: block;"><%= errors.password.msg %></span>
+                <% } %>
+                <span id="mensajePassword">Mensaje de error</span>
+                <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    placeholder="Ingresar contraseña"
+                    
+                    minlength="6"
+                    class="validacionpassword"
+                    value="<%= body.password? body.password : null %>"
+                />
+                <% if (errors.hasOwnProperty('login')) { %>
+                    <p class="errors"><%= errors.login %></p>
+                <% } %>
+                <label for="">Recordame</label>
+                <input type="checkbox" name="recordame">
+                
+                <button id="loginboton" type="submit">LOGIN</button>
+            </form>
+            <div class="contenedorCuenta">
+                <p>¿No tienes cuenta? <a href="/users/register">¡Registrate!</a></p>
+                <p>¿Olvidaste la contraseña? <a href="/users/restore">¡Restablecer!</a></p>
+            </div>
+        </div>
+    </main>
+    <%- include('../partials/footer.ejs') %>
+    <script src="/scripts/login.js"></script>
+</body>
+</html>

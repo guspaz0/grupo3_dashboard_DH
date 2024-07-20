@@ -1,0 +1,23 @@
+<% let { id, name, description, line, price, colors, images, categories } = producto %>
+<article>
+    <span>
+    <b class="titulocard"><%= name %></b>
+        <% if (locals.login) { %>
+        <div id="heart" class="heart">
+            <% if (favoritos.some(prod => prod.id == id)) { %> 
+                <div class=""></div>
+            <% } else { %> 
+                <div class="unheart"></div>
+            <% } %>
+        </div>
+        <% } %>
+        </div>
+    </span>
+    <a href="/products/<%= id %>"><img src=<%= images[0].pathName %> alt=<%= name %>/></a>
+    <p class="number" style="text-align:center">$<%= price %></p>
+    <ul class="color">Colores:
+        <% colors.forEach(({stock, color}) => { let background = `background-color:${color.hex};color:${color.hex};border-radius:50%;padding:10px;` %>
+            <li style=<%= background %>></li>
+        <% }) %>
+    </ul>
+</article>

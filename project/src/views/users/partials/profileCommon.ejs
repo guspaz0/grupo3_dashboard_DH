@@ -1,0 +1,45 @@
+
+<section class="profile">
+    <h3>Mis Datos</h3>
+    <% let { id, nombre, apellido, email, calle, calleNumero, provincia, imagen, codigoPostal, piso, departamento } = userData %>
+    <span>
+        <img class="perfil" src="<%= imagen %>" alt="<%= nombre.slice(0,1).toUpperCase()+apellido.slice(0,1).toUpperCase() %>"/><br>
+    </span>
+    <span class="userData">
+        <div>
+            <b>ID:</b> 
+            <t id="userID"><%= id %></t>
+        </div>
+        <div>
+            <b>Nombre:</b> 
+            <t><%= nombre %>, <%= apellido %></t>
+        </div>
+        <div>
+            <b>Email:</b>
+            <t><%= email %></t>
+        </div>
+        <div><b>Provincia:</b> <%= provincia %></div>
+        <div><b>Domicilio:</b> <%= calle %> <%= calleNumero %> </div>
+        <% if (piso) { %>
+            <div><b>Piso:</b> <%= piso %></div>
+        <% } %>
+        <% if (departamento) { %>
+            <div><b>Departamento:</b> <%= departamento %></div>
+        <% } %>
+        <div><b>Codigo Postal:</b> <%= codigoPostal %></div>
+    </span>
+</section>
+<section class="userData">
+    <ul class="submenu">
+        <a href="/users/<%= id %>/update"><li>Editar Perfil</li></a>
+        <a><li>Mis compras</li></a>
+        <a><li>Mis favoritos</li></a>
+        <a><li>Eliminar Cuenta</li></a>
+        <a><li>Cambiar contraseña</li></a>
+    </ul>
+    <%- include('./userPayments.ejs', {historialPagos}) %>
+    <%- include('./userFavorites.ejs',{favoritos}) %>
+    <%- include('./deleteAccount.ejs', {userData}) %>
+    <%- include('./changePassword.ejs', {userData}) %>
+</section>
+<script src="\scripts\profileCommon.js"></script>

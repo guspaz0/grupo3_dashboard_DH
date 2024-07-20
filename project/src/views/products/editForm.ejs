@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <%- include('../partials/head.ejs') %>
+        <link href="\css\editForm.css" rel="stylesheet"/>
+    </head>
+<body>
+    <%- include('../partials/navbar.ejs') %>
+    <main class="createForm">
+        <% if(message !== null){ %>
+            <script>
+                window.onload = function() {
+                    alert("Producto editado con exito");
+                };
+            </script>
+        <%}%>
+            <span class="titulo">
+                <h1>Editar Producto</h1>
+            </span>
+            <!-- <strong>Formulario Editar producto</strong> -->
+            <form class="form-producto" action="/products/<%= productEdit.id %>/edit?_method=PUT" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="id" value="<%= productEdit.id %>"/>
+                <span class="contenedor1">
+                    <label for="name"><b>Nombre:</b></label>
+                        <input class="inputForm" 
+                        id="name" 
+                        type="text" 
+                        name="name" 
+                        placeholder="Ingresar Nombre"
+                        value="<%= productEdit.name %>" 
+                        />
+                    <% if (locals.errors && errors.name) { %>
+                        <small id="name" class="errors"><%= errors.name.msg %></small>
+                    <% } %>
+                    <label for="description"><b>Descripcion:</b></label>
+                        <textarea id="description" type="text" name="description" placeholder="Ingresar descripción..."><%= productEdit.description %></textarea>
+                    </label>
+                    <% if (locals.errors && errors.description) { %>
+                        <small id="description" class="errors"><%= errors.description.msg %></small>
+                    <% } %>
+                <fieldset>
+                    <legend><b>Linea</b></legend>
+                    <label for="line">
+                        <input type="radio" id="line" name="line" value="sublimada" <% if (productEdit.line == 'sublimada') { %>
+                            <%= checked="checked" %>
+                            <% } %>/>Sublimada
+                    </label>
+                    <label for="line">
+                        <input type="radio" id="line" name="line" value="artesanal" <% if (productEdit.line == 'artesanal') { %>
+                            <%= checked="checked" %>
+                            <% } %>/>Artesanal
+                    </label>
+                    <% if (locals.errors && errors.line) { %>
+                        <small id="line" class="errors"><%= errors.line.msg %></small>
+                    <% } %>
+                </fieldset>
+                    <label for="category"><b>Categoria:</b>
+                        <select id="category" name="category">
+                            <% categorias.forEach(({id,name}) => { %>
+                                <option value="<%= id %>" 
+                                <% if (id == productEdit.categories?.id || id == productEdit?.category ) { %> <%= "selected" %> <% } %>>
+                                <%= name %></option>
+                        <% }) %>
+                        </select>
+                    <% if (locals.errors && errors.category) {  %>
+                        <small id="category" class="errors"><%= errors.category.msg %></small>
+                    <% } %>
+                    </label>
+                <fieldset>
+                    <legend><b>Colores</b></legend>
+                    <div class="container-colorinputs">
+                    <% productEdit.colors?.forEach(({stock, color},index) =>  { let background=`color:${color.hex};`%>
+                        <fieldset>
+                            <legend id="c<%= index %>" style=<%= background %>><%= color.name_es %></legend>
+                            <label for="color"></label>
+                            <input class="c<%= index %>" type="color" name="color" id="color" value="<%= color.hex %>"/>
+                            <% if (locals.errors && errors.color) { %>
+                                <small id="color" class="errors"><%= errors.color.msg %></small>
+                            <% } %>
+                            <label for="stock">Stock:</label>
+                            <input type="number" name="stock" class="inputForm number" value="<%= stock %>" />
+                            <% if (locals.errors && errors.stock) { %>
+                                <small id="stock" class="errors"><%= errors.stock.msg %></small>
+                            <% } %>
+                            <button id="deleteColor" class="deleteImage">Borrar</button>
+                            </fieldset>
+                    <% }) %>
+                        
+                    </div>
+                    <span id="agregar" class="button">Agregar color</span>
+                </fieldset>
+                    <label for="price"><b>Precio:</b></label>
+                    <input class="inputForm number" 
+                        type="number"
+                        id="price" 
+                        name="price"
+                        value="<%= productEdit.price %>" 
+                    />
+                    <% if (locals.errors && errors.price) { %>
+                        <small id="price" class="errors"><%= errors.price.msg %></small>
+                    <% } %>
+                </span>
+            <fieldset>
+                <legend><b>Imagenes</b></legend>
+                <div class="inputform button-wrap">
+                    <label class="button" for="imageinput">Subir Imagen
+                        <input
+                            class="uploadfile"
+                            type="file" 
+                            id="imageinput" 
+                            name="image" 
+                            accept="image/jpeg, image/png, image/jpg"
+                            placeholder="Ingresar URL de imagen..."
+                            multiple
+                        />
+                    </label>
+                    <% if (locals.errors && errors.image) { %>
+                        <small id="image" class="errors"><%= errors.image.msg %></small>
+                    <% } %>
+                </div>
+                <span id="imageRender">
+                    <% productEdit.images?.forEach(({id, pathName}) => { %>
+                        <span class="imageHold">
+                            <p><%= pathName.split('uploads')[1] %> ? KB</p>
+                            <img src="<%= pathName %>" alt="<%= productEdit.name+id %>"/>
+                            <input type="hidden" id="<%= id %>input" name="imageHold" value="<%= pathName %>"/>
+                            <button id="deleteImage" class="deleteImage" value="<%= pathName %>">Borrar</button>
+                        </span>
+                    <% }) %>
+                </span>
+            </fieldset>
+                <button class="button" type="submit">Editar</button>
+                </form>
+            </div>
+        <script src="\scripts\ntc.js"></script>
+        <script src="\scripts\colorValidator.js"></script>
+        <!-- <script src="\scripts\imageUpload.js"></script> -->
+        <script src="\scripts\validacionProducto.js"></script>
+    </main>
+    <%- include('../partials/footer.ejs') %>
+</body>
+</html>

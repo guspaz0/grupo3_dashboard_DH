@@ -1,0 +1,38 @@
+<nav>
+    <span class="barrasuperior">
+        <img class="logo" src="\images\4F5FA3DA-7648-4C42-B5F2-B01A0BA7C902.png"/>
+        <a href="/" class="logoa"><img class="logoLargo" src="\images\F41CA9F5-CC6B-4EF0-8A80-8769A56E7D89 (1).png" alt="La Tienda de Maria"/></a>
+       
+        <span class="loginNavbar">
+            <% if (locals.login) { %>
+            <span>
+                <a href="/cart"><i class="fa-solid fa-cart-shopping"></i></a>
+                <a href="/users/profile"><i class="fa-solid fa-user"></i></a>
+            </span>
+            <% } %>
+            <button>
+                <% if (locals.login) { %>
+                    <a id="cerrarsesion" href="/users/logout">Cerrar Sesión</a>
+                <% } else { %>
+                    <a id="ingresar" href="/users/login">Ingresá</a>
+                <% } %>
+            </button>
+            
+        </span>
+    </span>
+    <div class="site">
+        <ul>
+            <a href="/"><li>Inicio</li></a>
+            <a href="/products"><li>Productos</li></a>
+            <a href="/about"><li>Conocenos</li></a>
+            <a href="/contacto"><li>Contacto</li></a>
+            <a href="/autor"><li>Sobre Mi</li></a>
+            <% if (locals.login && locals.admin) { %>
+            <a href="/dashboard"><li>Panel Administrador</li></a>
+            <% } %>
+        </ul>
+        <div class="burger-menu">
+            <a id="menuburguer" class="target"><i class="fa-solid fa-bars"></i></a>
+        </div>
+    </div>
+</nav>

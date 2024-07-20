@@ -1,0 +1,157 @@
+
+
+* {
+    font-family: 'Gidole';
+    box-sizing: border-box;
+}
+
+.burgermenu{
+    display: flex;
+    margin: 0;
+    position: fixed; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    width: 100%;
+    height: 100%;
+    color: red;
+    background-color: rgba(38, 119, 91, 0.2); 
+    z-index: 3;
+    
+
+}
+
+#menuburguer{
+    cursor: pointer;
+}
+
+#menu{
+    display: flex;
+    flex-direction: column;
+    background-color: #26775b;
+    width: 85% ;
+    padding: 5px 0 10px 0;
+    box-shadow: 5px 5px 5px #b6e5db;
+}
+
+#menu ul{
+margin: 0;
+display: flex;
+height: 75%;
+flex-direction: column;
+justify-content: space-around;
+list-style-type: none;
+align-items: flex-start;
+}
+
+#logindiv{
+    height: 8%;
+    background-color: #b6e5db;
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    align-items: center;
+    padding: 15px 0 15px 0;
+}
+
+#logindiv span{
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#logindiv span a{
+    background-color: #b6e5db;
+    font-size: 2.3rem;
+    
+}
+
+#menu ul a{
+    font-size: 1.8rem;
+    padding: 0;
+}
+#menu ul a li{
+    width: 100%;
+    box-shadow: 0.1px 2px 0.1px rgb(100, 100, 100);
+}
+#menu ul a li:hover{
+    color: #71e9cf;
+    box-shadow: 0.1px 2px 0.1px #b6e5db;
+    
+}
+
+#menu a{
+    text-decoration: none;
+    color: #b6e5db;
+}
+
+#Xboton{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #b6e5db; 
+    font-size: 40px;
+    margin: 0 0 5px 0;
+    width: 100%;
+    height: 10%;
+}
+
+#Xboton a{
+    width: 10%;
+    margin: 0 2px 0 0;
+    color: #26775b;
+}
+#Xboton a i{
+   font-size: 75%;
+   cursor: pointer;
+
+}
+
+#Xboton img{
+    width: 75%;
+}
+.redes{
+    display: flex;
+    width: 100%;
+    justify-content: space-around ;
+    border: 1px solid #b6e5db;
+    padding: 5px 0 5px 0;
+}
+.redes a i{
+    color: #b6e5db;
+
+}
+
+
+#logindiv button {
+    display: flex;
+    /* margin-right: 43px; */
+    border: hidden;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    min-width: 70px;
+    width: 12.5vw;
+    font-size: 1rem;
+    background-color: #26775b;
+    color: white;
+    border-radius: 5px;
+    padding: 3px;
+    transition-duration: 500ms;
+
+
+}
+
+@media (min-width: 500px){
+    #Xboton a{
+        width: 7%;
+    }
+}
+
+@media (min-width: 760px){
+    .burgermenu{
+        display: none;
+    }
+
+}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <%- include('../partials/head.ejs') %>
+        <link href="\css\products.css" rel="stylesheet"/>
+        <link href="\css\card.css" rel="stylesheet"/>
+    </head>
+    <body>
+        <%- include('../partials/navbar.ejs') %>
+        <form class="searchbar" action="/products/filter" method="GET">
+            <input id="inputSearchBar" type="search" name="name" placeholder="Busqueda por nombre..."/>
+            <button id="botonSearchBar" type="submit" class="create">Buscar</button>
+        </form>
+        <main>
+            <section class="filter">
+                <p>Filtros</p>
+                <div class="filtrosAll">
+                <form id="filtros" action="/products/filter" method="GET">
+                    <span class="smalls">
+                    </span>
+                    <fieldset class="colors">
+                        <legend><b>Categoria</b></legend>
+                    <% categorias.forEach((category) => { %>
+                        <label for="<%= category.name %>" style="margin: 0 0 5px 0;" >
+                            <input id="<%= category.name %>" type="checkbox" name="category" value=<%= category.id %>>
+                            <%= category.name+'('+ category.productsCount +')' %>
+                        </label>
+                    <% }) %>
+                </fieldset>
+                <fieldset class="colors">
+                    <legend><b>Colores</b></legend>
+                    <% colors.forEach((color) => {  %>
+                    <label class="labelColor" for="<%= color.hex %>" style="margin: 0 0 5px 0;" >
+                        <div>
+                            <!-- style="background-color:<%= color.hex %>;border-radius:5px;padding:5px;" -->
+                            <input id="<%= color.hex %>" type="checkbox" name="color" value=<%= color.id %> />
+                            <%= color.name_es + '('+color.productsCount+')' %>
+                        </div>
+                        <div>
+                            <i class="colorIcon" style="background-color: <%= color.hex %>"></i>
+                        </div>
+                    </label>
+                    <% }) %>
+                </fieldset>
+                <fieldset class="filter-price">
+                    <legend><b>Precio menor a:</b></legend>
+                    <label for="999999" style="margin: 0 0 5px 0;" >Todos
+                        <input id="999999" type="radio" name="price" value="999999"/>
+                    </label>
+                    <label for="5000" style="margin: 0 0 5px 0;" >$5.000
+                        <input id="5000" type="radio" name="price" value="5000"/>
+                    </label>
+                    <label for="10000" style="margin: 0 0 5px 0;" >$10.000
+                        <input id="10000" type="radio" name="price" value="10000"/>
+                    </label>
+                    <label for="50000" >$50.000
+                        <input id="50000" type="radio" name="price" value="50000"/>
+                    </label>
+                </fieldset>
+                <!-- <% if (locals.login) { %>
+                <label for="favorites">Favoritos
+                    <input type="radio" name="favorites" value="<% locals.user.id %>"/>
+                </label>
+                <% } %> -->
+            </div>
+                <div class="botonFilter">
+                    <input  type="submit" value="ENVIAR"/>
+                    <input  formaction="/products" formmethod="GET" type="submit" value="Reset"/>
+                </div>
+            </form>
+            </section>
+            <span class="productos">
+                <section class="pagination">
+                    <a class="arrow-prev1"><span class="arrow-cards"></span></a>
+                    <% for (let p = 1; p <= Math.ceil(productos.length/10); p++ ) { %>
+                        <a id="page" class=<%= p == 1? "currentPage" : "" %>><%= p %></a>
+                    <% } %>
+                    <a class="arrow-next1"><span class="arrow-cards"></span></a>
+                </section>
+                <section class="cards">
+                    <% if (productos.length > 0) { %>
+                        <% productos.slice(0, 12).forEach((producto) => { %>
+                            <%- include('./card.ejs', {producto, favoritos}) %>
+                        <% }) %>
+                    <% } else { %>
+                        <h2>No se ha encontrado ningún producto</h2>
+                    <% } %>
+                    </section>
+        </span>
+        </main>
+        <%- include('../partials/footer.ejs') %>
+        <script src="\scripts\products.js"></script>
+    </body>
+</html>

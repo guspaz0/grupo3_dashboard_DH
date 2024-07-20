@@ -1,0 +1,29 @@
+services:
+  project:
+    container_name: la-tienda-de-maria
+    build: 
+      dockerfile: ./project/Dockerfile
+      context: ./
+    image: grupo_3_latiendademaria-api
+    env_file:
+      - ./project/.env
+    volumes:
+      - ./project/src/:/usr/code/src/
+      - ./project/public/:/usr/code/public/
+    ports:
+      - 3001:3001
+    command: npm start
+  dashboard:
+    container_name: dashboard
+    build: 
+      dockerfile: ./dashboard/Dockerfile
+      context: ./
+    image: dashboard
+    env_file:
+      - ./dashboard/.env
+    volumes:
+      - ./dashboard/public/:/usr/code/public/
+      - ./dashboard/src/:/usr/code/src/
+    ports:
+      - 5137:8080
+    command: npm run dev

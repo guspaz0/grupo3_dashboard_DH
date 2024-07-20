@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <%- include('../partials/head.ejs') %>
+        <link href="\css\detalle.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="\css\popups.css">
+        <title>La tienda de Maria</title>
+    </head>
+<body>
+    <%- include('../partials/navbar.ejs') %>
+    <main>
+        <% let { id, name, images, price ,stock, description, colors, categories } = detalle; %>
+        
+        <article>
+            <div class="imagenes">
+                <% images.forEach((img) => { %>
+                    <img src="<%= img.pathName %>" alt="imagen<%= img.id %>">
+                <% }) %>
+            </div>
+            <section class="carousel">
+                <% images.forEach((img, i) => {; %>
+                    <span id="item-<%= i+1 %>"></span>
+                    <div class="carousel-item item-<%= i+1 %>" style="background-image:url('<%= img.pathName %>');">
+                    <% if (i+1 == 1) { %>
+                        <a href="#item-<%= images.length %>" class="arrow-prev arrow"></a>
+                    <% } else { %>
+                        <a href="#item-<%= i %>" class="arrow-prev arrow"></a>
+                    <% } if (i+1 == images.length) {%>
+                        <a href="#item-1" class="arrow-next arrow"></a>
+                    <% } else { %>
+                        <a href="#item-<%= i+2 %>" class="arrow-prev arrow"></a>
+                    <% } %>
+                    </div>
+                <% }) %>
+            </section>
+            <form class="form-detalle" action="/users/cart/<%= id %>" method="POST">
+                <input type="hidden" name="id" value="<%= detalle.id %>">
+                <h2 class="tittled"><%= name %>
+                    <span class="containerheart">
+                        <div id="heart" class="heart">
+                        <% if (locals.login) { %>
+                            <% if (favorites.some(prod => prod.id == id)) { %> 
+                                <div class=""></div>
+                            <% } else { %> 
+                                <div class="unheart"></div>
+                            <% } %>
+                        <% } %>
+                        </div>
+                    </span>
+                </h2>
+                <h2 class="precio">$<%= price %></h3>
+                <h4>Cantidad: </h4>
+                <label for="cantidad">
+                    <a id="restar" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" style="cursor: pointer;">-</a>
+                    <input id="cantidad" type="number" min="1" placeholder="cantidad" name="cantidad" value="1"/>
+                    <a id="sumar" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" style="cursor: pointer;">+</a>
+                </label>
+                <h3 style="margin: 2px 0 0 0;">Colores:</h3>
+                <span class="color"> 
+                <% colors.forEach(({stock, color},index) => { let background = `background-color:${color.hex};color:${color.hex};border-radius:50%;padding-inline:10px` %>
+                <% let name = color.name.includes(" ") ? color.name.split(" ").join("-") : color.name %> 
+                    <div>
+                    <label class="coloresinput" for="<%= color.name %>"><i style=<%= background %>></i>
+                        <input style="margin: 0 2px 0 2px; cursor: pointer; " id="<%= name %>" type="radio" name="color" value="<%= color.id %>" <%= index === 0 ? 'checked' : '' %> />
+                    </label>
+                    <p class="stockcolores" style="font-size: 12px;"><%= color.name_es %></p>
+                    <p class="stockcolores" id="<%= name %>-stock" style="font-size: 12px;">stock: <%= parseInt(stock) %></p>
+                    </div>
+                    <% })%>
+                </span>
+                <span id="error-stock" style="color: red; display: none;">No hay suficiente stock del color seleccionado</span>
+                <span id="MensajeCart" style="color: green">Mensaje</span>
+                <% if (user) { %>
+                    <button id="botonCarrito1" class="presionado" onclick="event.preventDefault(); addCart('<%=id%>')">Agregar a carrito</button>
+                <% } else { %>
+                    <button id="botonCarrito" class="presionado"  onclick="event.preventDefault(); redireccionarAlogin()" >Agregar a carritos</button>
+                <% } %>
+            </form>
+            
+        </article>
+        
+        <div class="contenedordescription">
+            <h3>Descripcion:</h3>
+            <p><%= description %></p> 
+        </div>
+    </main>
+        
+    <%- include('../partials/footer.ejs') %>
+    <script src="\scripts\productDetail.js"></script>
+</body>
+</html>

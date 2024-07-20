@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <%- include('../partials/head.ejs') %>
+        <link href="\css\cart.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="\css\popups.css">
+    </head>
+    <body>
+        <%- include('../partials/navbar.ejs') %>
+        
+    <main>
+        <% if (locals.login) { %>
+            <%- include('./partials/userlogged.ejs', {cartDetail}) %>
+        <% } else { %>
+            <%- include('./partials/usernotlogged.ejs') %>
+        <% } %>
+        
+    </main>
+    <%- include('../partials/footer.ejs') %>
+    <script src="\scripts\cart.js"></script>
+</body>
+
+</html>
