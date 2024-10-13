@@ -13,6 +13,10 @@ services:
     ports:
       - 3001:3001
     command: npm start
+    depends_on:
+      db:
+        condition: service_healthy
+        restart: true
   dashboard:
     container_name: dashboard
     build: 
@@ -27,3 +31,28 @@ services:
     ports:
       - 5137:8080
     command: npm run dev
+    depends_on:
+      db:
+        condition: service_healthy
+        restart: true
+      project:
+        condition: service_started
+  db:
+    container_name: db_la_tienda_de_maria
+    build:
+      dockerfile: ./project/src/data/Dockerfile
+      context: ./project/src/data/
+    image: mysql
+    restart: always
+    # set shared memory limit when using docker-compose
+    shm_size: 128mb
+    volumes:
+      - ./project/src/data/db_la_tienda_de_maria.sql:/docker-entrypoint-initdb.d/db_la_tienda_de_maria.sql
+    env_file:
+      - ./project/src/data/.env
+    ports:
+      - 3306:3306
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 10s
+      retries: 5
